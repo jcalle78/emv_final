@@ -215,7 +215,7 @@ function obtenerValores(e) {
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("comboactivo").value;
 			
-			let url=`http://localhost:8888/usuario?campo=${campo}&valor=${textBuscar}&estado=${estado}`;           
+			let url=`http://localhost:8888/usuario?campo=${campo}&bus=${textBuscar}&est=${estado}`;                    
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
