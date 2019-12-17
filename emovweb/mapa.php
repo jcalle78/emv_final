@@ -21,7 +21,6 @@
 	<!--script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script-->	  
 	<div id="map"></div>
 		<script>
-	//holaaaaaaaaaaaaaaaaaaaaaaaaaa
 			var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 				osm = L.tileLayer(osmUrl, {maxZoom: 16, attribution: osmAttrib});

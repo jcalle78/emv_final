@@ -210,8 +210,9 @@
 		<script>
 	   //funcion buscar el id del usuario
 	   function BusUsuario(ced){
+		   
 			ced=ced.trim();
-			fetch(`http://localhost:8888/usuario?campo=2&valor=${ced}&estado=1`)
+			fetch(`http://localhost:8888/usuario?campo=2&bus=${ced}&est=1`)
 				.then(response => response.json())
 				.then(data => {
 
