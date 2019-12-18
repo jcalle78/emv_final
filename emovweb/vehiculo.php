@@ -73,7 +73,7 @@
 	<a href="vehiculoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
-<script type="text/javascript">			
+<script type="text/javascript">
 	const boton=document.querySelector('#buscar');		
 	const lista=document.querySelector('#lista');		
 
@@ -87,7 +87,7 @@
 				
 		(async () => {
 			try{
-				var idIns="1";
+				var idIns="2";
 				var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
 				
 				let response = await fetch(url);

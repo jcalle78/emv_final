@@ -132,14 +132,15 @@
 			var cod = $(this).parents("tr").find("td")[0].innerHTML;
 			var nom = $(this).parents("tr").find("td")[1].innerHTML;
 			var ape = $(this).parents("tr").find("td")[2].innerHTML;
+			document.getElementById('chofer').value = (`${nom} ${ape}`);
+			document.getElementById('idfun').value = cod.trim();
 			if(servicioEntrada)
 			{
 				cooperativa=$(this).parents("tr").find("td")[5].innerHTML;
 				comprobarTipo(cod);
 			}
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
-			document.getElementById('chofer').value = (`${nom} ${ape}`);
-			document.getElementById('idfun').value = cod.trim();
+			
 		});		 
 	</script>	
  

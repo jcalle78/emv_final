@@ -91,7 +91,7 @@
 				
 		(async () => {
 			try{
-				var idIns="1";
+				var idIns="2";
 				var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
 				
 				let response = await fetch(url);
