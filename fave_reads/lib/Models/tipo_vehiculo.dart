@@ -33,9 +33,9 @@ class TipoVehiculo extends Serializable
   }
 
 
-  Future<List> obtenertTipoVehiculo(String id) async {
+  Future<List> obtenertTipoVehiculo(int id) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_tipo_vehiculo t, public.te_vehiculo v where v.fun_id=${id} and t.tve_id=v.tve_id";
+    final String sql = "select * from public.te_tipo_vehiculo t, public.te_vehiculo v where v.fun_id=$id and t.tve_id=v.tve_id";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

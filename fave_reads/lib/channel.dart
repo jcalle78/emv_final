@@ -23,6 +23,7 @@ import 'Controller/opcion_rol_controller.dart';
 import 'Controller/representante_controller.dart';
 import 'Controller/rol_controller.dart';
 import 'Controller/ruta_controller.dart';
+import 'Controller/servicio_controller.dart';
 import 'Controller/tipo_servicio_controller.dart';
 import 'Controller/usuario_rol_controller.dart';
 import 'Controller/vehiculo_controller.dart';
@@ -80,6 +81,7 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/hijo/[:id]').link(() =>OpcionHijoController())
     ..route('/contadores/[:id]').link(() =>ContadoresController())
     ..route('/vehiculo/[:id]').link(() => VehiculoController())
+    ..route('/servicio/[:id]').link(() => ServicioController())
     ..route('/tipoServicio/[:id]').link(() => TipoServicioController())
     ..route('/rutas/[:id]').link(() => RutaController())
     ..route('/objetosPerdidos/[:id]').link(() => ObjetosPerdidosController())

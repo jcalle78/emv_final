@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:aqueduct/aqueduct.dart';
-import 'package:fave_reads/Models/Parada.dart';
+import 'package:fave_reads/Models/parada.dart';
+
 
 class ParadaController extends ResourceController{
 
@@ -16,6 +17,10 @@ class ParadaController extends ResourceController{
       case 1://caso opcion del query 1, Recuperar los datos de la parada por id de ruta
                 return Response.ok(await servicio.obtenerParadaRuta(dato));
         break;
+      case 2://caso opcion del query 2, Recuperar los datos de la parada por id de funcionario
+                return Response.ok(await servicio.obtenerParadaFuncionario(dato));
+        break;
+
       default:
                 return Response.ok(await servicio.obtenerDatos());
         break;

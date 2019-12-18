@@ -108,8 +108,8 @@
 				</div>
 
 
-                <div class="row ">
-                    <div id="map" style="width: 100%; height: 250px;"></div>
+                <div class="row my-5">
+                    <div id="map" style="width: 100%; height: 400px;"></div>
 				</div>
 
             </form>
@@ -122,6 +122,7 @@
 
 var servicioEntrada=true;
 var cooperativa=0;
+var tipoVehiculo=``;
 CargarFechaActual();
 
 function CargarFechaActual()
@@ -183,10 +184,73 @@ async function cargarComboEstudiante(
   }
 }
 
+async function comprobarTipo(cod)
+{
+    try {
+    let response = await fetch(`http://localhost:8888/servicio?opcion=1&id=${cod}`);
+    let data = await response.json();
+     var cont=0;
+    for (let pro of data) {
+      if (cont==0)
+        tipoVehiculo=pro.nombre;
+    }
+    if(tipoVehiculo == "BUS")
+        cargarParadas(cod.trim());
+   
+  } catch (e) {
+    console.log(e);
+  }
+
+
+
+}
+
+var control ;
+function cargarParadas(id)
+{
+	let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
+
+    var cords=[];
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
+			for(let prod of produ){	
+
+				cords.push(L.latLng(prod.latitud,prod.longuitud));		
+                alert(prod.latitud);	
+                alert(prod.longuitud);			
+								
+			}
+            
+            var control = L.Routing.control(L.extend( {
+                waypoints: cords,
+                routeWhileDragging: true,
+                reverseWaypoints: true,
+                showAlternatives: true,
+                altLineOptions: {
+                    styles: [
+                        {color: 'black', opacity: 0.15, weight: 9},
+                        {color: 'white', opacity: 0.8, weight: 6},
+                        {color: 'red', opacity: 0.5, weight: 2}
+                    ]
+                }
+            })).addTo(map);
+			
+		}
+		return produ;	
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}
+
 </script>
 
 
 <script>
+
 
 			var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -195,22 +259,32 @@ async function cargarComboEstudiante(
 			var cont=1;
 			var map = L.map('map').setView([-2.901866, -79.006055], 14).addLayer(osm);
 			map.doubleClickZoom.disable();
-			var control = L.Routing.control({
+			
+			
+			//Marcador en la Ciudad de Cuenca				
+			/*L.marker([-2.901866, -79.006055],{title: '1'})
+				.addTo(map)
+				.bindPopup('Ciudad de Cuenca.')
+				.openPopup();*/
+			
+				var greenIcon = new L.Icon({
+					iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+					shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+					iconSize: [25, 41],
+					iconAnchor: [12, 41],
+					popupAnchor: [1, -34],
+					shadowSize: [41, 41]
+					});
 
-				routeWhileDragging: true,
-				reverseWaypoints: true,
-				showAlternatives: true,
-				altLineOptions: {
-					styles: [
-						{color: 'black', opacity: 0.15, weight: 9},
-						{color: 'white', opacity: 0.8, weight: 6},
-						{color: 'blue', opacity: 0.5, weight: 2}
-					]
-				}
-				//geocoder: L.Control.Geocoder.nominatim()
-			}).addTo(map);
+
 			
 
+			function agregarMarcadorRojo(lat,lng,num,grupo)
+			{
+				L.marker([lat, lng], {icon: greenIcon}).addTo(grupo)
+				.bindPopup(`${num}`)
+				.openPopup();
+			}
 
 			function agregarMarcadorAzul(lat,lng,num,grupo)
 			{
@@ -226,6 +300,18 @@ async function cargarComboEstudiante(
 				btn.innerHTML = label;
 				return btn;
 			}
+
+			
+			
+			// function onLocationFound(e) 
+			// {
+			// 	var radius = e.accuracy / 2;
+
+			// 	L.marker(e.latlng).addTo(map)
+			// 		.bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+			// 	L.circle(e.latlng, radius).addTo(map);
+			// }
 
 			map.on('locationfound', onLocationFound);
 			map.on('locationerror', onLocationError);

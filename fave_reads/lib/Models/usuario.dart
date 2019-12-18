@@ -39,8 +39,7 @@ class Usuario extends Serializable {
       sql = "select * from public.te_usuario where $campo is not null and usu_estado = $estado order by usu_id ASC";
 
     }
-    
-    print(sql);
+   
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

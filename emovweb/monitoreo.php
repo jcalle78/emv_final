@@ -285,7 +285,6 @@ function cargarListaParadas(id)
 		
 		})		
 		.catch(error => { console.log("error",error); return error; });
-
 }
 
 function cargar(id)
@@ -462,9 +461,7 @@ function cargarUbicaciones(id)
 					language: 'sp'
 				}
 			});
-		</script>
+</script>
 
-
-		<!-- holaaaaaaaaaaaaaaaa -->
 
 <?php include 'footer.php'; ?>

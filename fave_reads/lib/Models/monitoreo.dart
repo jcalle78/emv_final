@@ -23,7 +23,7 @@ class Monitoreo extends Serializable
                     "(select max(m.mon_id) as id from public.te_monitoreo m, public.te_recorrido r, public.te_ruta t, public.te_institucion i "
                     " where r.rec_id=m.rec_id and r.rut_id=t.rut_id and t.ins_id=i.ins_id and i.ins_id=$id group by m.rec_id order by 1) as x"
                     " where  x.id=w.mon_id";
-    print(sql);       
+        
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
