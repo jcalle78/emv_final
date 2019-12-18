@@ -13,50 +13,50 @@
 
 					<form>	
 						<div class="row">
-						<label class="col-sm-3 col-form-label" >Cédula:<span style="color:red" >*</span></label>
-							<div class="col-sm-5">
+						<label class="col-md-3 col-form-label" >Cédula:<span style="color:red" >*</span></label>
+							<div class="col-md-5">
 								<input type='text' id= "ced" class="form-control text-upperCase form-control-sm"  maxlength="10"/>
 							</div>
 						</div>
 						<div class=" row">
-							<label class="col-sm-3 col-form-label">Nombre:<span style="color:red" >*</span></label>
-							<div class="col-sm-8">
-								<input type='text' onkeyup="this.value = this.value.toUpperCase();" id= "nom" class="form-control form-control-sm"  maxlength="100"/>
+							<label class="col-md-3 col-form-label">Nombre:<span style="color:red" >*</span></label>
+							<div class="col-md-8">
+								<input type='text' id= "nom" class="form-control form-control-sm text-uppercase"  maxlength="100"/>
 							</div>
 						</div>
 						<div class="row">
-							<label class="col-sm-3 col-form-label">Apellido:<span style="color:red" >*</span></label>
-							<div class="col-sm-8">
-								<input type='text' onkeyup="this.value = this.value.toUpperCase();" id= "ape" class="form-control text-upperCase form-control-sm"  maxlength="50" />
+							<label class="col-md-3 col-form-label">Apellido:<span style="color:red" >*</span></label>
+							<div class="col-md-8">
+								<input type='text' id= "ape" class="form-control form-control-sm text-uppercase"  maxlength="50" />
 							</div>
 						</div>
 						<div class="row">
-							<label class="col-sm-3 col-form-label" >Dirección:<span style="color:red" >*</span></label>
-							<div class="col-sm-8">
-								<input type='text' onkeyup="this.value = this.value.toUpperCase();" id="dir"  class="form-control form-control-sm" maxlength="100" />
+							<label class="col-md-3 col-form-label" >Dirección:<span style="color:red" >*</span></label>
+							<div class="col-md-8">
+								<input type='text' id="dir"  class="form-control form-control-sm text-uppercase" maxlength="100" />
 							</div>
 						</div>
 						<div class="row">
-							<label class="col-sm-3 col-form-label">Teléfono:</label>
-							<div class="col-sm-5">
+							<label class="col-md-3 col-form-label">Teléfono:</label>
+							<div class="col-md-5">
 								<input type='text'id= "telf" class="form-control form-control-sm" maxlength="10"/>
 							</div>
 						</div>	
 						<div class="row">
-							<label class="col-sm-3 col-form-label">Celular:<span style="color:red" >*</span></label>
-							<div class="col-sm-5">
+							<label class="col-md-3 col-form-label">Celular:<span style="color:red" >*</span></label>
+							<div class="col-md-5">
 								<input type='text' pattern="\d*" id= "cel" class="form-control form-control-sm" maxlength="10"/>
 							</div>
 						</div>	
 						<div class="row">
-							<label class="col-sm-3 col-form-label">Correo:<span style="color:red" >*</span></label>
-							<div class="col-sm-8">
+							<label class="col-md-3 col-form-label">Correo:<span style="color:red" >*</span></label>
+							<div class="col-md-8">
 								<input type='text'id= "email" class="form-control form-control-sm" maxlength="100"/>
 							</div>
 						</div>	
 						<div class="row">
-							<label class="col-sm-3 col-form-label">Estado:</label>
-							<div class="col-sm-5">
+							<label class="col-md-3 col-form-label">Estado:</label>
+							<div class="col-md-5">
 								<SELECT id="est" class="browser-default custom-select"> 
 									<OPTION VALUE="1">ACTIVO</OPTION>
 									<OPTION VALUE="0">INACTIVO</OPTION>
