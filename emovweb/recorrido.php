@@ -411,13 +411,12 @@
 				.openPopup();*/
 			
 		
-			
-			function createButton(label, container) 
-			{
-				var btn = L.DomUtil.create('button', '', container);
-				btn.setAttribute('type', 'button');
-				btn.innerHTML = label;
-				return btn;
+			function createButton(label, container) {
+			var btn = L.DomUtil.create('button', '', container);
+			btn.setAttribute('type', 'button');
+			btn.setAttribute('class', 'btn');
+			btn.innerHTML = label;
+			return btn;
 			}
 
 			map.on('dblclick', function(e) 
@@ -428,6 +427,7 @@
 					destBtn = createButton('Finalizar ruta aqui', container),
 					delBtn = createButton('Eliminar ultima parada', container);
 
+			
 				L.popup()
 					.setContent(container)
 					.setLatLng(e.latlng)
@@ -435,6 +435,7 @@
 					
 				L.DomEvent.on(startBtn, 'click', function() 
 				{
+					
 					control.spliceWaypoints(0, 1, e.latlng);
 					map.closePopup();
 					vec=[];

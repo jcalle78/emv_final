@@ -138,6 +138,8 @@
 			{
 				cooperativa=$(this).parents("tr").find("td")[5].innerHTML;
 				comprobarTipo(cod);
+				marker.setLatLng([0,0]).update();
+				map.removeLayer(marker);
 			}
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			

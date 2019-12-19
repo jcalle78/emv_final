@@ -1,7 +1,7 @@
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
-import 'opcion.dart';
+
 
 
 class Servicio extends Serializable {
@@ -57,7 +57,8 @@ class Servicio extends Serializable {
     Future<void> ingresar(Servicio dato) async{
     final conexion = Conexion();
     final String sql = "INSERT INTO public.te_servicio(ser_fecha_registro, ser_fecha_fin, ser_observacion, ser_estado, ser_latitud, ser_longitud, ple_id, ins_coop_id, ins_edu_id, est_id, fun_id, tse_id)"
-	                      " VALUES ('${dato.fechaRegistro}','${dato.fechaFin}','${dato.observacion}',${dato.estado},'${dato.latitud}','${dato.longitud}',${dato.periodo},${dato.cooperativa},${dato.educativa},${dato.estudiante},${dato.funcionario},${dato.tipoServicio});";
+	                      " VALUES ('${dato.fechaRegistro}','${dato.fechaFin}','${dato.observacion}',${dato.estado},'${dato.latitud}','${dato.longitud}',${dato.periodo},${dato.cooperativa},${dato.educativa},${dato.estudiante},${dato.funcionario},${dato.tipoServicio})";
+    print(sql);
     await conexion.operaciones(sql);
   }
 
@@ -71,7 +72,7 @@ class Servicio extends Serializable {
   void readFromMap(Map<String, dynamic> object) {
 
 
-     id=object['id'].toString();
+   id=object['id'].toString();
    fechaRegistro=object['fechaRegistro'].toString();
    fechaFin=object['fechaFin'].toString();
    observacion=object['observacion'].toString();

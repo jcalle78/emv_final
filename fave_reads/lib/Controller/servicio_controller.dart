@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:aqueduct/aqueduct.dart';
-import 'package:fave_reads/Models/Recorrido.dart';
 import 'package:fave_reads/Models/servicio.dart';
 import 'package:fave_reads/Models/tipo_vehiculo.dart';
 
@@ -27,9 +26,9 @@ class ServicioController extends ResourceController{
 
 
   @Operation.post()
-  Future<Response> crearRecorrido(@Bind.body() Recorrido body )async
+  Future<Response> crearRecorrido(@Bind.body() Servicio body )async
   {
-     final servicio = Recorrido();
+     final servicio = Servicio();
      await servicio.ingresar(body);
     return Response.ok('se ha ingresado');
   }
