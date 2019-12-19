@@ -104,7 +104,7 @@
 
 
                 <div class="row ">
-                    <label class="col-md-3 col-form-label  align-self-center" id="textoElegirServicio"></label>
+                    <label class="col-md-12 col-form-label  align-self-center blue-grey-text text-center" id="textoElegirServicio"></label>
 				</div>
 
 
@@ -203,9 +203,16 @@ async function comprobarTipo(cod)
         tipoVehiculo=pro.nombre;
     }
     if(tipoVehiculo == "BUS")
+    {
         cargarParadas(cod.trim());
+        document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma**`;
+    }
     else
+    {
         agregarUbicacion();
+        document.getElementById('textoElegirServicio').innerHTML=`**Para agregar la parada pulsar doble click y agregar la parada donde necesite el servicio**`;
+    }
+        
    
   } catch (e) {
     console.log(e);
