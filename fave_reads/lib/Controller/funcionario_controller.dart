@@ -4,7 +4,7 @@ import 'package:fave_reads/Models/funcionario.dart';
 
 class FuncionarioController extends ResourceController{
 
-
+//Jhon PUTO
 
  @Operation.get()
   Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est,@Bind.query('idIns') String idIns) async
