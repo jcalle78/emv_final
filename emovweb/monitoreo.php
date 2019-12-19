@@ -221,7 +221,7 @@ function myfunc(ele) {
 				 }
 				 
 			 });
-	
+			 control.setWaypoints(null);
    	if(intervalos.length > 0 )
 	{
 		for(var i=0;i<intervalos.length;i++)
@@ -260,7 +260,6 @@ function myfunc(ele) {
 
 function cargarListaParadas(id)
 {
-	
 	let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
 
 	fetch(url)
@@ -271,6 +270,12 @@ function cargarListaParadas(id)
 		{
 			var layerGroup2 = L.layerGroup().addTo(map)
 			layers.push(layerGroup2);
+			var cords=[];
+			for(let prod of produ){	
+				cords.push(L.latLng(prod.latitud,prod.longuitud));	
+			}
+			
+			control.setWaypoints(cords);
 			for(let prod of produ){	
 
 				agregarMarcadorRojo(prod.latitud,prod.longuitud,prod.nombre,layerGroup2);							
@@ -279,10 +284,6 @@ function cargarListaParadas(id)
 			
 		}
 		return produ;	
-		
-		
-		
-		
 		})		
 		.catch(error => { console.log("error",error); return error; });
 }
@@ -361,7 +362,7 @@ function cargarUbicaciones(id)
 			agregarMarcadorAzul(prod.latitud,prod.longuitud,prod.nombre,layerGroup);	
 			cont++;									
 		}
-			return produ;				
+		return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
 
@@ -382,20 +383,20 @@ function cargarUbicaciones(id)
 			var cont=1;
 			var map = L.map('map').setView([-2.901866, -79.006055], 14).addLayer(osm);
 			map.doubleClickZoom.disable();
-			var control = L.Routing.control({
 
-				routeWhileDragging: true,
-				reverseWaypoints: true,
-				showAlternatives: true,
+			var control = L.Routing.control(L.extend( {
+				waypoints: [null],
+				routeWhileDragging: false,
+				reverseWaypoints: false,
+				showAlternatives: false,
 				altLineOptions: {
 					styles: [
 						{color: 'black', opacity: 0.15, weight: 9},
 						{color: 'white', opacity: 0.8, weight: 6},
-						{color: 'blue', opacity: 0.5, weight: 2}
+						{color: 'red', opacity: 0.5, weight: 2}
 					]
 				}
-				//geocoder: L.Control.Geocoder.nominatim()
-			}).addTo(map);
+			})).addTo(map);
 			
 			//Marcador en la Ciudad de Cuenca				
 			/*L.marker([-2.901866, -79.006055],{title: '1'})

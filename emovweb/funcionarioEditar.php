@@ -178,7 +178,7 @@
 												var urlUsuario=`${raizServidor}/usuario`;
 												var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
 												//console.log(ParametrosUsuario);
-												Ingresar(ParametrosUsuario,urlUsuario);												
+												// Ingresar(ParametrosUsuario,urlUsuario);												
 											}catch(e){
 												toastr.error('Error al Cargar algunos datos'); 	
 											}
