@@ -6,10 +6,10 @@ class EstudianteController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String id,@Bind.query('valor') String valor,@Bind.query('estado') String estado) async
+  Future<Response> obtenerLista(@Bind.query('campo') String id,@Bind.query('valor') String valor,@Bind.query('estado') String estado, @Bind.query('idIns') String idIns) async
   {
     final servicio = Estudiante();
-    return Response.ok(await servicio.obtenerDatos(id,valor,estado));
+    return Response.ok(await servicio.obtenerDatos(id,valor,estado,idIns));
   }
 
   @Operation.get('id')

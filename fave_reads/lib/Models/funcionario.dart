@@ -27,6 +27,9 @@ class Funcionario extends Serializable {
     return datos;
   }
 
+
+
+
   Future<List> obtenerDatos(
       String campo, String bus, String est, String intitucionId) async {
     final conexion = Conexion();

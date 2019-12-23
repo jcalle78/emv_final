@@ -173,12 +173,13 @@
 										Ingresar(parametros,url);
 										 (async () => {
 											try{												
-												let response = await fetch(`${raizServidor}/contadores?opcion=3`)
+												let response = await fetch(`${raizServidor}/contadores?opcion=3&id=0`);
 												let data = await response.json();	
 												var urlUsuario=`${raizServidor}/usuario`;
 												var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
 												//console.log(ParametrosUsuario);
-												// Ingresar(ParametrosUsuario,urlUsuario);												
+												//alert(data.numero);
+												Ingresar(ParametrosUsuario,urlUsuario);												
 											}catch(e){
 												toastr.error('Error al Cargar algunos datos'); 	
 											}

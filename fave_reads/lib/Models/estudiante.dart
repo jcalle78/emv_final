@@ -13,10 +13,14 @@ class Estudiante extends Serializable {
   String estado;
   String insId;
 
-  Future<List> obtenerDatos(String camp, String valor, String est) async {
+  Future<List> obtenerDatos(String camp, String valor, String est,String intitucionId) async {
     final conexion = Conexion();
-    final String sql =
-        "select * from public.te_estudiante where $camp::text LIKE '%$valor%' and est_estado::text LIKE '%$est%' order by est_id DESC";
+    String sql;
+    if (intitucionId != "")
+      sql =
+        "select * from public.te_estudiante where ins_id=$intitucionId and $camp::text LIKE '%$valor%' and est_estado::text LIKE '%$est%' order by est_id DESC";
+    else
+      sql =  "select * from public.te_estudiante where $camp::text LIKE '%$valor%' and est_estado::text LIKE '%$est%' order by est_id DESC";
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

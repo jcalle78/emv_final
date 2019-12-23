@@ -27,11 +27,7 @@
 <script>
 function obtenerValores(e) {
     var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
-    let valores=`<td></td>
-                <td class=" text-center"><div class="spinner-border text-center" role="status">
-                <span class="sr-only">Loading...</span>
-                </div></td>
-                <td></td>`;
+    let valores=`<td></td><td class=" text-center"><div class="spinner-border text-center" role="status"><span class="sr-only">Loading...</span></div></td><td></td>`;
     document.getElementById('opciones').innerHTML=valores;
 
     cargarOpciones(elementosTD[0].innerHTML);

@@ -84,8 +84,10 @@
         var textBuscar=document.getElementById('textBuscar').value;
         textBuscar=textBuscar.toUpperCase();			
         var estado=document.getElementById("comboactivo").value;                    
-              
-        let url=`http://localhost:8888/estudiante?campo=${campo}&valor=${textBuscar}&estado=${estado}`;
+        
+        var idIns="";
+        let url=`http://localhost:8888/estudiante?campo=${campo}&valor=${textBuscar}&estado=${estado}&idIns=${idIns}`;
+       
         fetch(url)
         .then((res) => {return res.json(); })
         .then(produ => {
