@@ -358,11 +358,11 @@
 						else{
 							(async() =>{
 							
-							let response = await fetch(`http://localhost:8888/contadores?opcion=1`);		
+							let response = await fetch(`http://localhost:8888/contadores?opcion=1&id=0`);		
 							let data = await response.json();
 							idRuta=data.numero+1;
 
-							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2`);		
+							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2&id=0`);		
 							let data2 = await response2.json();
 							idRecorrido =data2.numero + 1; 
 							ingresarRutaRecorrido(nombreRuta.value,descRuta.value,cupoRuta.value,colorRuta.value,idVehiculo.value,inicioRuta.value,finRuta.value,listaSentido,estado);

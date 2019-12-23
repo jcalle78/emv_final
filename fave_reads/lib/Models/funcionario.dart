@@ -1,7 +1,6 @@
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
-//jhon PUTO
 
 class Funcionario extends Serializable {
   int id;

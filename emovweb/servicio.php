@@ -50,6 +50,27 @@
                     </div>
 				</div>
 
+                 <!-- SELECCIONAR CONDUCTOR -->
+                <h5 class="text-center"><strong>Lista de Rutas Disponibles</strong></h5>
+				<div class=" row">
+                    <label class="col-md-3  col-form-label align-self-center">Código: <span class="text-danger">* </span></label>
+                    <div class="col-md-3 align-self-center">
+                        <input type='text' id= "idfun" class="form-control form-control-sm " />
+                    </div>
+                            
+                    <div class="col-sm-0 align-self-center" id="buscar">
+                            <a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSmC"><i class="fas fa fa-search "></i></a>
+                        </div>	
+                </div>
+
+                <div class="row ">
+                    <label class="col-md-3 col-form-label  align-self-center">Nombres:</label>
+                    <div class="col-md-7 align-self-center">
+                        <input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
+                    </div>	
+				</div>
+                <!-- FIN SELECCIONAR CONDUCTOR-->
+
                 <!-- SELECCIONAR CONDUCTOR -->
                 <h5 class="text-center"><strong>Datos del Conductor </strong></h5>
 				<div class=" row">
