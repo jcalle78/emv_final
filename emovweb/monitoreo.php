@@ -65,7 +65,7 @@
 			</div>
 			<div class="row border">
 				<div class="col-md-12">
-				<div class='table-responsive-sm my-custom-scrollbar'>
+					<div class='table-responsive-sm my-custom-scrollbar'>
                         <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
                             <tr>
@@ -131,7 +131,7 @@ function cargarRutas(id)
 			<span class="sr-only">Loading...</span>
 			</div></td>`;
 	document.getElementById('listaRutas').innerHTML =result;
-	var url=`http://localhost:8888/rutas?opcion=2&id=`+id;
+	var url=`http://localhost:8888/rutas?opcion=2&id=`+id+`&id2=0`;
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
@@ -205,6 +205,7 @@ function cargarRutas(id)
 var layers=[];
 var layers2=[];
 var intervalos=[];
+
 function myfunc(ele) {
 
 	var values = new Array();

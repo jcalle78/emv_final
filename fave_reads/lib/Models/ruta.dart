@@ -24,10 +24,11 @@ class Ruta extends Serializable
     {
       datos=int.parse(query[0][0].toString());
     }
-     return datos;
+
+    return datos;
   }
  
-  Future<List> obtenerDatos(int opcion, int id) async {
+  Future<List> obtenerDatos(int opcion, int id,int id2) async {
     final conexion = Conexion();
     String sql;
 
@@ -41,12 +42,19 @@ class Ruta extends Serializable
         sql="select * from public.te_ruta where rut_estado=1 and ins_id=$id";
         break;
 
+      case 3:
+        sql="select * from public.te_ruta u where u.ins_id=2 and u.rut_estado=$id "
+              "union select r.rut_id, r.rut_nombre, r.rut_descripcion, r.rut_estado, r.rut_cupo_maximo, r.rut_color, r.ins_id "
+              "from public.te_ruta r, public.te_institucion_educativa_ruta e where e.ins_id=$id2 and e.rut_id=r.rut_id and r.rut_estado=1";
+        break;
+
       default: break;
     }
 
 
 
     final List datos=[];
+
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
     if(query != null && query.isNotEmpty)
@@ -70,7 +78,6 @@ class Ruta extends Serializable
      return datos;
     
   }
-
 
 
   Future<Ruta> obtenerDatoId(int id) async {

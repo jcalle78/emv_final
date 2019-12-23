@@ -53,22 +53,20 @@
                  <!-- SELECCIONAR CONDUCTOR -->
                 <h5 class="text-center"><strong>Lista de Rutas Disponibles</strong></h5>
 				<div class=" row">
-                    <label class="col-md-3  col-form-label align-self-center">Código: <span class="text-danger">* </span></label>
-                    <div class="col-md-3 align-self-center">
-                        <input type='text' id= "idfun" class="form-control form-control-sm " />
+                    <div class=' col-md-12 justify-content-center table-responsive-sm my-custom-scrollbar'>
+                        <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
+                            <thead class='cyan white-text'>
+                            <tr>
+								<th scope='col'>ID</th>
+								<th scope='col'>RUTA</th>
+							</tr>
+                        </thead>
+                        <tbody  id="listaRutas" class='dt-select' >
+                            <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
+                        </tbody>
+                        </table>
                     </div>
-                            
-                    <div class="col-sm-0 align-self-center" id="buscar">
-                            <a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSmC"><i class="fas fa fa-search "></i></a>
-                        </div>	
                 </div>
-
-                <div class="row ">
-                    <label class="col-md-3 col-form-label  align-self-center">Nombres:</label>
-                    <div class="col-md-7 align-self-center">
-                        <input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
-                    </div>	
-				</div>
                 <!-- FIN SELECCIONAR CONDUCTOR-->
 
                 <!-- SELECCIONAR CONDUCTOR -->
@@ -144,6 +142,10 @@
 
 
 <script>
+let parametro = new URLSearchParams(location.search);
+var idRepresentante = parametro.get('id');	
+var idInstitucionEducativa=parametro.get('inst');
+var idInstitucionTransporte=parametro.get('edu');	
 var institutoMonitoreo=false;
 var servicioEntrada=true;
 var cooperativa=0;
@@ -151,6 +153,52 @@ var tipoVehiculo=``;
 var lati=0;
 var long=0;
 CargarFechaActual();
+
+function cargarRutas()
+{
+	
+	var result=`<td></td>
+			<td class=" text-center"><div class="spinner-border text-center" role="status">
+			<span class="sr-only">Loading...</span>
+			</div></td>`;
+	document.getElementById('listaRutas').innerHTML =result;
+	var url=`http://localhost:8888/rutas?opcion=3&id=`+idInstitucionEducativa+`&id2=2`;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		result=``;
+		if(produ.length > 0)
+		{
+			for(let prod of produ){						
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.nombre}</td>
+						</tr>`;								
+								
+			}
+			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaRutas').innerHTML =result;
+		let elementos=document.getElementsByClassName('boton');
+
+		for(let i=0;i<elementos.length;i++)
+		{
+			elementos[i].addEventListener('click',obtenerValores);
+		} 
+		$(".dt-select tr ").click(function(){
+			$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');		
+		});
+
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}
 
 function CargarFechaActual()
 {
@@ -174,14 +222,14 @@ function CargarFechaActual()
     document.getElementById("estado").disabled=true;
 
 
-    let parametro = new URLSearchParams(location.search);
-    var idRepresentante = parametro.get('id');	
+
     
     var contenedor1=document.querySelector('#estudiante');
 	var urlperiodo1=`${raizServidor}/estudianteRepresentante?id=${idRepresentante}`;			
     cargarComboEstudiante(urlperiodo1,"tipoEstudiante",contenedor1,"");
     
-    document.getElementById("estado").disabled=true;	
+    document.getElementById("estado").disabled=true;
+    cargarRutas();	
 }
 
 
