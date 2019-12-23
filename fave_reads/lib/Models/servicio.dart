@@ -19,6 +19,19 @@ class Servicio extends Serializable {
   String funcionario;
   String tipoServicio;
 
+  Future<int> obtenerNumeroElementosPorFuncionario(int id) async {
+    final conexion = Conexion();
+    final String sql = "select count (*) from public.te_servicio where fun_id=$id";
+    int datos = -1;
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if (query != null && query.isNotEmpty) {
+      datos = int.parse(query[0][0].toString());
+    }
+    return datos;
+  }
+
+
    Future<List> obtenerDatos(int id) async {
     final conexion = Conexion();
     final String sql = "select * from public.te_servicio where ser_id=$id";

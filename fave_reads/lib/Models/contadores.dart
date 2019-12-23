@@ -3,7 +3,6 @@ import 'package:fave_reads/Models/recorrido.dart';
 import 'package:fave_reads/Models/ruta.dart';
 import 'package:fave_reads/Models/servicio.dart';
 import 'package:fave_reads/fave_reads.dart';
-
 import 'funcionario.dart';
 
 class Contadores extends Serializable {
@@ -26,15 +25,15 @@ class Contadores extends Serializable {
         final funcionario = Funcionario();
         reg.numero = await funcionario.obtenerNumeroElementos();
         break;
+
       case 4:  //numero de servicios por funcionario
         final servicio = Servicio();
-        reg.numero = await servicio.obtenerNumeroElementos();
+        reg.numero = await servicio.obtenerNumeroElementosPorFuncionario(id);
         break;
 
       default:
         break;
     }
-
     return reg;
   }
 
