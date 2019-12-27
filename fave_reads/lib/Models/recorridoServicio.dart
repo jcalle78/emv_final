@@ -13,7 +13,7 @@ class RecorridoServicio extends Serializable
  
   Future<void> ingresar(RecorridoServicio dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_recorrido_servicio(rec_id, ser_id, par_id) VALUES (${dato.servicio}, ${dato.recorrido},${dato.parada})";
+    final String sql = "INSERT INTO public.te_recorrido_servicio(rec_id, ser_id, par_id) VALUES (${dato.recorrido}, ${dato.servicio},${dato.parada})";
     await conexion.operaciones(sql);
   }
 
