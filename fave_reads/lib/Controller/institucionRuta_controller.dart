@@ -19,13 +19,13 @@ class InstitucionRutaController extends ResourceController{
   //   return Response.ok(await servicio.obtenerDatoId(id));
   // }
 
-  // @Operation.post()
-  // Future<Response> crearInstitucion(@Bind.body() Institucion body )async
-  // {
-  //    final servicio = Institucion();
-  //    await servicio.ingresar(body);
-  //   return Response.ok('se ha ingresado');
-  // }
+  @Operation.post()
+  Future<Response> crearInstitucion(@Bind.body() InstitucionRuta body )async
+  {
+     final servicio = InstitucionRuta();
+     await servicio.ingresar(body);
+    return Response.ok('se ha ingresado');
+  }
 
   // @Operation.put('id')
   // Future<Response> modificarInstitucion(@Bind.path('id') int id,@Bind.body() Institucion body) async

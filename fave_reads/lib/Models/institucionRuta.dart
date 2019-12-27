@@ -62,13 +62,13 @@ class InstitucionRuta extends Serializable
     
   // }
 
-  // Future<void> ingresar(Institucion dato) async{
-  //   final conexion = Conexion();
-  //   final String sql = "INSERT INTO public.te_institucion(ins_nombre, ins_ruc, ins_direccion, ins_telefono, ins_correo, ins_estado, tin_id)"
-  //  " VALUES ('${dato.nombre}', '${dato.ruc}','${dato.direccion}','${dato.telefono}','${dato.correo.replaceAll('@','*')}', ${dato.estado}, ${dato.tipoInstitucionId})";
-  //   print(sql);
-  //   await conexion.operaciones(sql);
-  // }
+  Future<void> ingresar(InstitucionRuta dato) async{
+    final conexion = Conexion();
+    final String sql = "INSERT INTO public.te_institucion_educativa_ruta(ins_id, rut_id, ier_estado)"
+   " VALUES ('${dato.ins}', '${dato.ruta}',${dato.estado})";
+    print(sql);
+    await conexion.operaciones(sql);
+  }
 
   //  Future<void> modificar(int id,Institucion dato) async{
   //   final conexion = Conexion();
