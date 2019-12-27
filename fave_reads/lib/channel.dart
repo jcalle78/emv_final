@@ -16,6 +16,7 @@ import 'Controller/contadores_controller.dart';
 import 'Controller/estado_objetos_controller.dart';
 import 'Controller/estudianteRepresentante_controller.dart';
 import 'Controller/funcionario_controller.dart';
+import 'Controller/institucionRuta_controller.dart';
 import 'Controller/institucion_controller.dart';
 import 'Controller/objetos_perdidos_controller.dart';
 import 'Controller/opcion_hijos_controller.dart';
@@ -93,6 +94,8 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/sentido/[:id]').link(() => SentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
+    ..route('/institucionRuta/[:id]').link(() => InstitucionRutaController())
+    
     
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 

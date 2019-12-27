@@ -83,11 +83,10 @@
         var campo = document.getElementById('campo').value;			
         var textBuscar=document.getElementById('textBuscar').value;
         textBuscar=textBuscar.toUpperCase();			
-        var estado=document.getElementById("comboactivo").value;                    
-        
-        var idIns="";
-        let url=`http://localhost:8888/estudiante?campo=${campo}&valor=${textBuscar}&estado=${estado}&idIns=${idIns}`;
+        var estado=document.getElementById("comboactivo").value; 
        
+        let url=`http://localhost:8888/estudiante?campo=${campo}&valor=${textBuscar}&estado=${estado}&idIns=${IntitucionPrincipal}`;
+      
         fetch(url)
         .then((res) => {return res.json(); })
         .then(produ => {

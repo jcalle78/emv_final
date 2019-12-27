@@ -1,9 +1,7 @@
 <?php include 'header.php'; 
-//    include 'codigophp/sesion.php';
-//  $menu=Sesiones("EMOV");
+    include 'codigophp/sesion.php';
+  $menu=Sesiones("EMOV");
 //    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
-//    $idFun="2";
-//    $idIns="2";
 ?>
 
 <div class="container-fluid grey pr-0 pl-0">
@@ -77,7 +75,7 @@
 	const boton=document.querySelector('#buscar');		
 	const lista=document.querySelector('#lista');		
 
-	function Buscar(){	
+	async function Buscar(){	
 		event.preventDefault();
 		var campo = document.getElementById('campo').value;			
 		var textBuscar=document.getElementById('textBuscar').value;
@@ -85,35 +83,31 @@
 		var estado=document.getElementById("estBusqueda").value;	
 		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 				
-		(async () => {
-			try{
-				var idIns="2";
-				var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
-				
-				let response = await fetch(url);
-				let data = await response.json();
-				let result="";					
-				est="";
-				for(let prod of data){						
-					result +=
-					`<tr> 
-						<td> ${prod.id}</td>
-						<td> ${prod.placa}</td>
-						<td class="text-center"> ${prod.capacidad}</td>	
-						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
-						<td>
-							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
-							<?php echo "class='fas fa-edit'>Editar</a>" ?>
-						</td>
-					</tr>`;										
-				}
-				result += `</table> `;
-				lista.innerHTML=result;	
-			}catch(e){
-				toastr.error('Error al Cargar algunos datos'+ e); 	
+		try{				
+			var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${IntitucionPrincipal}`;
+			
+			let response = await fetch(url);
+			let data = await response.json();
+			let result="";					
+			est="";
+			for(let prod of data){						
+				result +=
+				`<tr> 
+					<td> ${prod.id}</td>
+					<td> ${prod.placa}</td>
+					<td class="text-center"> ${prod.capacidad}</td>	
+					<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+					<td>
+						<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
+						<?php echo "class='fas fa-edit'>Editar</a>" ?>
+					</td>
+				</tr>`;										
 			}
-		})();
-
+			result += `</table> `;
+			lista.innerHTML=result;	
+		}catch(e){
+			toastr.error('Error al Cargar algunos datos'+ e); 	
+		}	
 }				
 		boton.addEventListener('click',Buscar);
 	</script>	

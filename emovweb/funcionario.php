@@ -155,8 +155,8 @@
 				if(textBuscar==""){
 					//textBuscar="*****";
 				}
-				var idIns="";
-				let url=`http://localhost:8888/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
+				// var idIns="";
+				let url=`http://localhost:8888/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${IntitucionPrincipal}`;
 
 
 				fetch(url)

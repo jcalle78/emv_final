@@ -10,11 +10,11 @@
 
 <div class="container">
     <div class="row mt-3 ">
-        <div class="h3 text-left font-weight-bold">POST RUTAS</div>
+        <div class="h3 text-left font-weight-bold">INSTITUCION EDUCATIVA - RUTA</div>
     </div>
 
     <div class="form-group row mt-3">
-        <div class="col-md-3">
+    <div class="col-md-3">
             <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
                 <option value="ins_nombre" selected>NOMBRE</option>
@@ -73,19 +73,19 @@
 
 
 <script type="text/javascript">
-	const boton=document.querySelector('#buscar');	
-	function Buscar(){	
+	const boton=document.querySelector('#buscar');		
+	const lista=document.querySelector('#lista');	
+
+	async function Buscar(){	
 		event.preventDefault();
-	
-		(async () => {
 			try{
-				let response = await fetch(`${raizServidor}/contadores?opcion=4&id=1`);
+				let response = await fetch(`${raizServidor}/institucionRuta?est`);
 				let data = await response.json();   
-				alert(data.numero);
+				console.log(data);
 			}catch(e){
 					toastr.error('Error al Cargar algunos datos'); 	
 			}
-		})();	
+			
 	}
 	boton.addEventListener('click',Buscar);
 </script>
