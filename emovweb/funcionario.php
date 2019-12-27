@@ -148,10 +148,6 @@
 				textBuscar=textBuscar.toUpperCase();
 				var estado=document.getElementById("estado").value;
 
-
-
-
-
 				if(textBuscar==""){
 					//textBuscar="*****";
 				}
