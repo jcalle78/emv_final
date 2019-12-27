@@ -36,7 +36,7 @@
 </div>
 
 
-<div class="container-fluid my-5">
+<div class="container-fluid my-2">
 	<div class="row ml-2">
 		<div class="col-md-4 m-0  card">
       	
@@ -84,26 +84,62 @@
 			</div>
 
 			<div class="row mt-3">
-				<div class="h4 text-left font-weight-bold col-md-6">Fechas</div>
+				<div class="h5 text-left font-weight-bold col-md-6">Fechas</div>
 			</div>
-			<div class="row">
-				<label class="col-md-3 col-form-label  align-self-center">Desde:</label>
-				<div class="col-md-5 align-self-center">
+			<div class="row border-bottom">
+				<label class="col-md-2 col-form-label  align-self-center">Desde:</label>
+				<div class="col-md-4 align-self-center">
 					<input type="date" id= "fdesde" class="form-control text-uppercase form-control-sm"/>
 				</div>
-			</div>
-
-			<div class="row">
-				<label class="col-md-3 col-form-label  align-self-center">Hasta:</label>
-				<div class="col-md-5 align-self-center">
+				<label class="col-md-2 col-form-label  align-self-center">Hasta:</label>
+				<div class="col-md-4 align-self-center">
 					<input type="date" id= "fhasta" class="form-control text-uppercase form-control-sm"/>
 				</div>
 			</div>
+
+			<div class="row mt-3">
+				<div class="h5 text-left font-weight-bold col-md-12">Datos del Conductor y Vehículo</div>
+			</div>
+
+			<div class="row ">
+				<label class="col-md-3 col-form-label  align-self-center">Nombre:</label>
+				<div class="col-md-8 align-self-center">
+					<input type="text" id= "nomC" class="form-control text-uppercase form-control-sm" readonly disabled />
+				</div>
+			</div>
+			<div class="row ">
+				<label class="col-md-3 col-form-label  align-self-center">Placa:</label>
+				<div class="col-md-8 align-self-center">
+					<input type="text" id="plc" class="form-control text-uppercase form-control-sm" readonly disabled />
+				</div>
+			</div>
+
 		</div>
 
 
-		<div class="col-md-8 p-3">
-			<div id="map" style="width: 100%; height: 600px;"></div>
+		<div class="col-md-8 p-2">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-1 text-right">
+						<div class="circuloAzul"></div>
+					</div>
+					<div class="col-md-3 text-left">
+						<div class="">Paradas visitadas</div>
+					</div>
+				</div>
+				<div class="row mt-1">
+					<div class="col-md-1">
+						<div class="circuloRojo"></div>
+					</div>
+					<div class="col-md-3">
+						<div >Paradas no visitadas</div>
+					</div>
+				</div>
+				<div class="row mt-2">
+					<div id="map" style="width: 100%; height: 550px;"></div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -157,45 +193,14 @@ function cargarRutas(id)
 		document.getElementById('listaRutas').innerHTML =result;
 		let elementos=document.getElementsByClassName('boton');
 
-		for(let i=0;i<elementos.length;i++)
-		{
-			elementos[i].addEventListener('click',obtenerValores);
-		} 
 		$(".dt-select tr ").click(function(){
 			$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
-
+			
 			
 		});
 
 		
 		$("input.case").click(myfunc);
-		// $('.checkAll').on('click', function () {
-		// $(this).closest('table').find('tbody :checkbox')
-		// 	.prop('checked', this.checked)
-		// 	.closest('tr').toggleClass('selected', this.checked);
-			
-		// 	var cont=0; var message=""; idRutas=[];
-		// 	$("#tablaRutas input[type=checkbox]:checked").each(function () {
-		// 		var row = $(this).closest("tr")[0];
-		// 		if(cont>0)
-		// 		{
-		// 			idRutas.push(row.cells[0].innerHTML);
-		// 			cargarListaParadas(row.cells[0].innerHTML);
-		// 		}
-		// 		cont++;
-		// 	});
-
-		// 	setInterval(() => {
- 		// 		cargarUbicaciones(document.getElementById('idInst').value)
-		// 	}, 5000);
-		// });
-
-		// $('tbody :checkbox').on('click', function () {
-		// 	$(this).closest('tr').toggleClass('selected', this.checked); 
-		
-		// 	$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
-					
-		// });
 
 		return produ;				
 		})		
@@ -205,6 +210,7 @@ function cargarRutas(id)
 var layers=[];
 var layers2=[];
 var intervalos=[];
+var conductores=[];
 
 function myfunc(ele) {
 
@@ -292,7 +298,7 @@ function cargarListaParadas(id)
 function cargar(id)
 {
 	cargarUbicaciones(id);
-
+	cargarVehiculos(id);
 	var pasos = setInterval(function(){
         cargarUbicaciones(id);
 	}, 3000); 
@@ -301,20 +307,11 @@ function cargar(id)
 	
 }
 
-function obtenerValores(e) {
-var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
-let valores=`<td></td>
-			<td class=" text-center"><div class="spinner-border text-center" role="status">
-			<span class="sr-only">Loading...</span>
-			</div></td>
-			<td></td>`;
-document.getElementById('listaVehículos').innerHTML=valores;
-
-cargarVehiculos(elementosTD[0].innerHTML);
-
 		 
 function cargarVehiculos(id)
 {
+	var cont=0;
+	var funid=0;
 	var result=``;
 	let url= `http://localhost:8888/rutaVehiculo?id=${id}`;
 
@@ -324,30 +321,42 @@ function cargarVehiculos(id)
 		
 		if(produ.length > 0)
 		{
-			for(let prod of produ){						
-			result += `<tr> 
-						<td class="boton">${prod.id}</td>
-						<td class="boton">${prod.placa}</td> 
-						</tr>`;								
+			for(let prod of produ)
+			{
+				if(cont==0)
+				{
+					document.getElementById('plc').value=prod.placa;
+					funid=prod.fun_id;
+					cont++;
+				}
 								
 			}
 			
 		}
-		else{
-			result= `<tr> 
-						<td></td>
-						<td>No se encuentran coincidencias</td> 
-						</tr>`;	
-		}
-		document.getElementById('listaVehículos').innerHTML =result;
-		return produ;				
-		})		
-		.catch(error => { console.log("error",error); return error; });
+		cargarFuncionario(funid);
+	return produ;				
+	})		
+	.catch(error => { console.log("error",error); return error; });
 }	
 
 
-}
+function cargarFuncionario(id)
+{
+	var cont=0;
+	var result=``;
+	let url= `http://localhost:8888/funcionario/${id}`;
 
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		document.getElementById('nomC').value=produ.nombre+" "+produ.apellido;
+			
+		
+	return produ;				
+	})		
+	.catch(error => { console.log("error",error); return error; });
+}	
 
 
 

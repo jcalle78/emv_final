@@ -45,7 +45,7 @@ class Ruta extends Serializable
       case 3:
         sql="select * from public.te_ruta u where u.ins_id=2 and u.rut_estado=$id "
               "union select r.rut_id, r.rut_nombre, r.rut_descripcion, r.rut_estado, r.rut_cupo_maximo, r.rut_color, r.ins_id "
-              "from public.te_ruta r, public.te_institucion_educativa_ruta e where e.ins_id=$id2 and e.rut_id=r.rut_id and r.rut_estado=1";
+              "from public.te_ruta r, public.te_institucion_educativa_ruta e where e.ins_id=$id2 and e.rut_id=r.rut_id and r.rut_estado=1 order by 2";
         break;
       
       case 4:

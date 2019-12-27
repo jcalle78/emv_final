@@ -12,7 +12,7 @@
 
 <div class="container pt-3">
 	<div class="row">
-		<div class="h3 text-left font-weight-bold">PreRutas</div>
+		<div class="h3 text-left font-weight-bold">PreRuta</div>
 	</div>
 
 

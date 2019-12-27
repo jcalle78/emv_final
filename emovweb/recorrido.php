@@ -40,9 +40,9 @@
 		?>
 </div>
 
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-2" >
 	<div class="row ">
-		<div class="col-md-5 m-0  card">
+		<div class="col-md-5 m-0  card" ">
 			<div class="container-fluid m-0 p-0">
 				<div class="row">
 					<div class="col-md-12">
@@ -98,9 +98,6 @@
 								<div class="col-md-3">
 									<input type='time' id= "inicioRuta" name="inicioRuta" class="form-control" required/>
 								</div>
-							</div>
-
-							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Hora fin: <span style="color:red" >*</span></label>
 								<div class="col-md-3">
 									<input type='time' id= "finRuta" name="finRuta"  class="form-control" required/>
@@ -109,22 +106,18 @@
 							
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Sentido<span style="color:red" >*</span></label>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<SELECT id="listaSentido"  class="browser-default custom-select"> 
 									</SELECT> 
 								</div>
-							</div>
-
-
-							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Estado:<span style="color:red" >*</span></label>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<SELECT id="estado2"  class="browser-default custom-select"> 
 										<OPTION VALUE="1" selected >ACTIVO</OPTION>
 										<OPTION VALUE="0">INACTIVO</OPTION>
 									</SELECT> 
 								</div>
-							</div>							
+							</div>						
 						</form>
 					</div>		
 				</div>
@@ -152,7 +145,7 @@
 			
 		</div>
 		<div class="col-md-7 p-3">
-			<div id="map" style="width: 100%; height: 500px;"></div>
+			<div id="map" style="width: 100%; height: 550px;"></div>
 			<div class="grey-text text-center">*Para guardar la información debe primero seleccionar las paradas correspondientes a las rutas</div>
 		</div>
 	</div>	

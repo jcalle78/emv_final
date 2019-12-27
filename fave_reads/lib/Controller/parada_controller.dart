@@ -24,7 +24,7 @@ class ParadaController extends ResourceController{
                 return Response.ok(await servicio.obtenerDatos(dato));
         break;
 
-      default: break;
+      default:  return Response.ok('Ninguna opcion seleccionada');
         break;
     }
     

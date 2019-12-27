@@ -25,6 +25,10 @@ body{
     overflow: auto;
     }
 
+    .divscroll {
+      height: 600px;
+      overflow: auto;
+      }
     /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -71,4 +75,22 @@ display: block;
 	height: 3rem;
   color: white;
 	font-size: 2rem;
+}
+
+.circuloRojo {
+  width: 25px;
+  height: 25px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background:#fd6666;
+}
+
+.circuloAzul {
+  width: 25px;
+  height: 25px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #509de4;
 }

@@ -7,16 +7,12 @@
 <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
 
 
-<?php
-    include 'vehiculo_modal_select_funcionario.php';
-    include 'funcionario_modal_selec_institucion.php';
-?>
-
 <div class="container mt-2">
     <div class="row justify-content-center ">
         <div class="col-md-10 ">
             <form action="">
                 <h3 class="card-header cyan white-text font-weight-bold text-center p-0 m-0" >Solicitud de servicio</h3>
+                
                 <div class="row">
                     <label class="col-md-3 col-form-label  align-self-center">Fecha Registro:</label>
                     <div class="col-md-3 align-self-center">
@@ -28,8 +24,25 @@
                         <input type="date" id="ffin" class="form-control text-uppercase form-control-sm"/>
                     </div>
                 </div>
+                
+                <!-- SELECCIONAR INSTITUCION-->
+                <div class="row ">
+                    <label class="col-md-3 col-form-label  align-self-center">Institución Educativa:</label>
+                    <div class="col-md-3 align-self-center">
+                        <input type="text" id= "nomInst" class="form-control text-uppercase form-control-sm" readonly disabled />
+                    </div>
+                    <label class="col-md-3 col-form-label  align-self-center">Estado:</label>
+                    <div class="col-md-3 align-self-center">
+                        <SELECT id="estado"  class="browser-default custom-select"> 
+                            <OPTION VALUE="1" selected >ACTIVO</OPTION>
+                            <OPTION VALUE="0">INACTIVO</OPTION>
+                        </SELECT> 
+                    </div>	
+                            
+                </div>
+                 <!-- FIN SELECCIONAR INSTITUCION-->
 
-                <div class="row">
+                <div class="row mt-2">
                     <label class="col-md-3 col-form-label  align-self-center">Observaci&oacute;n:</label>
                     <textarea class="form-control col-md-8 ml-3" id="observacion" rows="2"></textarea>
                 </div>
@@ -57,8 +70,9 @@
                         <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
                             <tr>
+                                <th scope='col'>NRO</th>
+								<th scope='col'>NOMBRE</th>
 								<th scope='col'>ID</th>
-								<th scope='col'>RUTA</th>
 							</tr>
                         </thead>
                         <tbody  id="listaRutas" class='dt-select' >
@@ -70,57 +84,18 @@
                 <!-- FIN SELECCIONAR CONDUCTOR-->
 
                 <!-- SELECCIONAR CONDUCTOR -->
-                <h5 class="text-center"><strong>Datos del Conductor </strong></h5>
-				<div class=" row">
-                    <label class="col-md-3  col-form-label align-self-center">Código: <span class="text-danger">* </span></label>
-                    <div class="col-md-3 align-self-center">
-                        <input type='text' id= "idfun" class="form-control form-control-sm " />
-                    </div>
-                            
-                    <div class="col-sm-0 align-self-center" id="buscar">
-                            <a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSmC"><i class="fas fa fa-search "></i></a>
-                        </div>	
-                </div>
-
+                <h5 class="text-center"><strong>Datos del Conductor y Vehículo </strong></h5>
                 <div class="row ">
                     <label class="col-md-3 col-form-label  align-self-center">Nombres:</label>
-                    <div class="col-md-7 align-self-center">
-                        <input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
-                    </div>	
-				</div>
-                <!-- FIN SELECCIONAR CONDUCTOR-->
-
-                <!-- SELECCIONAR INSTITUCION-->
-                <h5 class="container text-center mt-3 "><strong >Datos de la Institución </strong></h5>
-                <div class=" row">
-                    <label class="col-md-3  col-form-label align-self-center">Código:<span style="color:red" >*</span></label>
-                    <div class="col-md-3 align-self-center">
-                        <input type='text' id= "idInst" class="form-control form-control-sm " />
-                    </div>
-                                      
-                    <div class="col-sm-0 align-self-center" id="buscar">
-                        <a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
-                    </div>	
-                </div>
-                    
-                <div class="row ">
-                    <label class="col-md-3 col-form-label  align-self-center">Nombre:</label>
-                    <div class="col-md-7 align-self-center">
-                        <input type="text" id= "nomInst" class="form-control text-uppercase form-control-sm" readonly disabled />
-                    </div>
-                            
-                </div>
-                 <!-- FIN SELECCIONAR INSTITUCION-->
-                <div class="row ">
-                    <label class="col-md-3 col-form-label  align-self-center">Estado:</label>
                     <div class="col-md-4 align-self-center">
-                        <SELECT id="estado"  class="browser-default custom-select"> 
-                            <OPTION VALUE="1" selected >ACTIVO</OPTION>
-                            <OPTION VALUE="0">INACTIVO</OPTION>
-                        </SELECT> 
+                        <input type="text" id= "nomC" class="form-control text-uppercase form-control-sm" readonly disabled />
+                    </div>
+                    <label class="col-md-2 col-form-label  align-self-center">Placa:</label>
+                    <div class="col-md-3 align-self-center">
+                        <input type="text" id= "plc" class="form-control text-uppercase form-control-sm" readonly disabled />
                     </div>	
-				</div>
-
+                </div>
+                <!-- FIN SELECCIONAR CONDUCTOR-->
 
                 <div class="row ">
                     <label class="col-md-12 col-form-label  align-self-center blue-grey-text text-center" id="textoElegirServicio"></label>
@@ -154,8 +129,16 @@ var cooperativa=0;
 var tipoVehiculo=``;
 var lati=0;
 var long=0;
+var lati2=0;
+var long2=0;
 CargarFechaActual();
-comprobarTipo(idConductor);
+cargarEducativa(idInstitucionEducativa)
+
+if(idConductor != 0)
+{
+    comprobarTipo(idConductor);
+}
+
 
 function cargarRutas()
 {
@@ -169,14 +152,17 @@ function cargarRutas()
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
-		result=``;
+        result=``;
+        var cont=1;
 		if(produ.length > 0)
 		{
 			for(let prod of produ){						
 			result += `<tr> 
-						<td class="boton">${prod.id}</td>
-						<td class="boton">${prod.nombre}</td>
-						</tr>`;								
+                        <td class="boton">${cont}</td>
+                        <td class="boton">${prod.nombre}</td>
+                        <td class="boton">${prod.id}</td>
+                        </tr>`;	
+            cont++;							
 								
 			}
 			
@@ -193,7 +179,8 @@ function cargarRutas()
 		for(let i=0;i<elementos.length;i++)
 		{
 			elementos[i].addEventListener('click',obtenerValores);
-		} 
+        } 
+        
 		$(".dt-select tr ").click(function(){
 			$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');		
 		});
@@ -201,6 +188,14 @@ function cargarRutas()
 		return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
+}
+
+function obtenerValores(e)
+{
+    
+    var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
+    cargarParadas(elementosTD[2].innerHTML);
+    cargarVehiculos(elementosTD[2].innerHTML);
 }
 
 function CargarFechaActual()
@@ -274,20 +269,19 @@ async function comprobarTipo(cod)
       if (cont==0)
         tipoVehiculo=pro.nombre;
     }
-    alert(tipoVehiculo);
     if(tipoVehiculo == "BUS")
     {
         $('#tituloRuta').show(); 
         $('#divRuta').show(); 
         cargarParadas(cod.trim());
-        document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma**`;
+        document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma, Si el servicio es mixto debera elegir dos paradas diferentes**`;
     }
     else
     {
         $('#tituloRuta').hide(); 
         $('#divRuta').hide(); 
         agregarUbicacion();
-        document.getElementById('textoElegirServicio').innerHTML=`**Para agregar la parada pulsar doble click y agregar la parada donde necesite el servicio**`;
+        document.getElementById('textoElegirServicio').innerHTML=`**Para agregar la parada pulsar doble click y agregar la parada donde necesite el servicio, Si el servicio es mixto debera elegir dos paradas diferentes**`;
     }
         
    
@@ -299,17 +293,85 @@ async function comprobarTipo(cod)
 
 }
 
+function cargarVehiculos(id)
+{
+	var cont=0;
+	var funid=0;
+	var result=``;
+	let url= `http://localhost:8888/rutaVehiculo?id=${id}`;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
+			for(let prod of produ)
+			{
+				if(cont==0)
+				{
+					document.getElementById('plc').value=prod.placa;
+					funid=prod.fun_id;
+					cont++;
+				}
+								
+			}
+			
+		}
+        cargarFuncionario(funid);
+        comprobarTipo(funid);
+	return produ;				
+	})		
+	.catch(error => { console.log("error",error); return error; });
+}	
+
+
+function cargarEducativa(id)
+{
+	var result=``;
+	let url= `http://localhost:8888/institucion/${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		document.getElementById('nomInst').value=produ.nombre;
+			
+		
+	return produ;				
+	})		
+	.catch(error => { console.log("error",error); return error; });
+}	
+
+function cargarFuncionario(id)
+{
+	var cont=0;
+	var result=``;
+	let url= `http://localhost:8888/funcionario/${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		document.getElementById('nomC').value=produ.nombre+" "+produ.apellido;
+			
+		
+	return produ;				
+	})		
+	.catch(error => { console.log("error",error); return error; });
+}	
 
 
 function agregarUbicacion()
 {
     marker.addTo(map);
+    marker2.addTo(map);
     map.locate({setView: true, maxZoom: 16});
     map.on('locationfound', onLocationFound);
     map.on('dblclick', function(e) 
     {
         var container = L.DomUtil.create('div'),
-            nueva = createButton('Agregar Parada', container);
+            ida = createButton('Agregar IDA', container),
+            vuelta = createButton('Agregar VUELTA', container);
 
     
         L.popup()
@@ -318,11 +380,19 @@ function agregarUbicacion()
             .openOn(map);
             
        
-        L.DomEvent.on(nueva, 'click', function() 
+        L.DomEvent.on(ida, 'click', function() 
         {
             lati=e.latlng.lat;
             long=e.latlng.lng;
             marker.setLatLng(e.latlng).update();
+            map.closePopup();
+        });
+
+        L.DomEvent.on(vuelta, 'click', function() 
+        {
+            lati2=e.latlng.lat;
+            long2=e.latlng.lng;
+            marker2.setLatLng(e.latlng).update();
             map.closePopup();
         });
         
@@ -334,8 +404,8 @@ function agregarUbicacion()
 function cargarParadas(id)
 {
     
-	let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
-
+	// let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
+    let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
     var cords=[];
     
 	fetch(url)
@@ -452,9 +522,14 @@ var layerGroup = L.layerGroup().addTo(map);
 var marker=L.marker([0,0], {icon: greenIcon})
     .bindPopup(`Parada Seleccionada`)
     .on('mouseover', onClick);
+
+var marker2=L.marker([0,0], {icon: greenIcon})
+    .bindPopup(`Parada Seleccionada`)
+    .on('mouseover', onClick);
 //Marcador en la Ciudad de Cuenca				
 /*L.marker([-2.901866, -79.006055],{title: '1'})
-    .addTo(map)
+    .addTo(map)aaaaaaaaaaaa
+    
     .bindPopup('Ciudad de Cuenca.')
     .openPopup();*/
 
@@ -530,6 +605,7 @@ function onLocationFound(e)
         
     L.circle(e.latlng, radius).addTo(map);
 }
+
 
 </script>
 
