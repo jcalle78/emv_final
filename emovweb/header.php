@@ -19,6 +19,7 @@
   <link href="css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link href="css/addons/datatables.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/jquery.tablescroll.css"/>
   <!-- DataTables JS -->
   <script href="js/addons/datatables.min.js" rel="stylesheet"></script>
 
@@ -34,6 +35,7 @@
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript" src="js/jquery.tablescroll.js"></script>
 
 <header class="sticky-top container-fluid cyan">
   <div class="row text-center text-white ">

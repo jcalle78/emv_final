@@ -88,7 +88,7 @@
 
 
 			<!--codigo de tabs      -->
-			<script></script>
+		
 
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">

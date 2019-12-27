@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:aqueduct/aqueduct.dart';
-import 'package:fave_reads/Models/Recorrido.dart';
+import 'package:fave_reads/Models/recorrido.dart';
 
 class RecorridoController extends ResourceController{
 
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('id') int id) async
   {
     final servicio = Recorrido();
-    return Response.ok(await servicio.obtenerDatos());
+    return Response.ok(await servicio.obtenerDatos(id));
   }
 
   @Operation.get('id')

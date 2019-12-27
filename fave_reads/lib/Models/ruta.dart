@@ -28,7 +28,7 @@ class Ruta extends Serializable
     return datos;
   }
  
-  Future<List> obtenerDatos(int opcion, int id,int id2) async {
+  Future<List> obtenerDatos(int opcion, int id,int id2,String campo,String bus,String est) async {
     final conexion = Conexion();
     String sql;
 
@@ -46,6 +46,11 @@ class Ruta extends Serializable
         sql="select * from public.te_ruta u where u.ins_id=2 and u.rut_estado=$id "
               "union select r.rut_id, r.rut_nombre, r.rut_descripcion, r.rut_estado, r.rut_cupo_maximo, r.rut_color, r.ins_id "
               "from public.te_ruta r, public.te_institucion_educativa_ruta e where e.ins_id=$id2 and e.rut_id=r.rut_id and r.rut_estado=1";
+        break;
+      
+      case 4:
+        sql = "select * from public.te_ruta where $campo::text LIKE '%$bus%' and rut_estado::text LIKE '%$est%' and ins_id=$id order by rut_id";
+       
         break;
 
       default: break;

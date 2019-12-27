@@ -29,13 +29,8 @@ class Periodo extends Serializable
       
         datos.add(reg.asMap()); 
       }
+    }
       return datos;
-    }
-    else
-    {
-      return null;
-    }
-    
   }
 
   Future<Periodo> obtenerDatoId(int id) async {

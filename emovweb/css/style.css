@@ -11,6 +11,9 @@ body{
 .boton{
     cursor: pointer;
 }
+.boton1{
+  cursor: pointer;
+}
 
 .filaSeleccionada {
     background-color: rgb(209, 207, 207);

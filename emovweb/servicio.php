@@ -51,8 +51,8 @@
 				</div>
 
                  <!-- SELECCIONAR CONDUCTOR -->
-                <h5 class="text-center"><strong>Lista de Rutas Disponibles</strong></h5>
-				<div class=" row">
+                <h5 class="text-center" id="tituloRuta"><strong>Lista de Rutas Disponibles</strong></h5>
+				<div class=" row" id="divRuta">
                     <div class=' col-md-12 justify-content-center table-responsive-sm my-custom-scrollbar'>
                         <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
@@ -145,7 +145,9 @@
 let parametro = new URLSearchParams(location.search);
 var idRepresentante = parametro.get('id');	
 var idInstitucionEducativa=parametro.get('inst');
-var idInstitucionTransporte=parametro.get('edu');	
+var idInstitucionTransporte=parametro.get('edu');
+var idConductor=parametro.get('cond');
+
 var institutoMonitoreo=false;
 var servicioEntrada=true;
 var cooperativa=0;
@@ -153,6 +155,7 @@ var tipoVehiculo=``;
 var lati=0;
 var long=0;
 CargarFechaActual();
+comprobarTipo(idConductor);
 
 function cargarRutas()
 {
@@ -162,7 +165,7 @@ function cargarRutas()
 			<span class="sr-only">Loading...</span>
 			</div></td>`;
 	document.getElementById('listaRutas').innerHTML =result;
-	var url=`http://localhost:8888/rutas?opcion=3&id=`+idInstitucionEducativa+`&id2=2`;
+	var url=`http://localhost:8888/rutas?opcion=3&id=`+idInstitucionEducativa+`&id2=2&campo=0&bus=0&est=0`;
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
@@ -263,21 +266,26 @@ async function cargarComboEstudiante(
 async function comprobarTipo(cod)
 {
     try {
-    layerGroup.clearLayers();
+    // layerGroup.clearLayers();
     let response = await fetch(`http://localhost:8888/servicio?opcion=1&id=${cod}`);
     let data = await response.json();
-     var cont=0;
+    var cont=0;
     for (let pro of data) {
       if (cont==0)
         tipoVehiculo=pro.nombre;
     }
+    alert(tipoVehiculo);
     if(tipoVehiculo == "BUS")
     {
+        $('#tituloRuta').show(); 
+        $('#divRuta').show(); 
         cargarParadas(cod.trim());
         document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma**`;
     }
     else
     {
+        $('#tituloRuta').hide(); 
+        $('#divRuta').hide(); 
         agregarUbicacion();
         document.getElementById('textoElegirServicio').innerHTML=`**Para agregar la parada pulsar doble click y agregar la parada donde necesite el servicio**`;
     }
@@ -325,6 +333,7 @@ function agregarUbicacion()
 
 function cargarParadas(id)
 {
+    
 	let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
 
     var cords=[];

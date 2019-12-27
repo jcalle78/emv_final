@@ -131,7 +131,7 @@ function cargarRutas(id)
 			<span class="sr-only">Loading...</span>
 			</div></td>`;
 	document.getElementById('listaRutas').innerHTML =result;
-	var url=`http://localhost:8888/rutas?opcion=2&id=`+id+`&id2=0`;
+	var url=`http://localhost:8888/rutas?opcion=2&id=`+id+`&id2=0&campo=0&bus=0&est=0`;
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {

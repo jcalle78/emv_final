@@ -20,9 +20,11 @@ class ParadaController extends ResourceController{
       case 2://caso opcion del query 2, Recuperar los datos de la parada por id de funcionario
                 return Response.ok(await servicio.obtenerParadaFuncionario(dato));
         break;
+      case 3://caso opcion del query 3, Recuperar los datos de la parada por id de recorrido
+                return Response.ok(await servicio.obtenerDatos(dato));
+        break;
 
-      default:
-                return Response.ok(await servicio.obtenerDatos());
+      default: break;
         break;
     }
     

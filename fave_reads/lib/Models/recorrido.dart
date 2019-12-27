@@ -26,9 +26,9 @@ class Recorrido extends Serializable
      return datos;
   }
  
-  Future<List> obtenerDatos() async {
+  Future<List> obtenerDatos(int id) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_recorrido where rec_estado=0";
+    final String sql = "select r.rec_id,to_char(r.rec_hora_inicio, 'HH24:MI'),to_char(r.rec_hora_fin, 'HH24:MI'),r.rec_estado,r.sen_id,r.rut_id from public.te_recorrido r where rec_estado=1 and rut_id=$id";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -46,36 +46,29 @@ class Recorrido extends Serializable
         reg.rutId=int.parse(query[i][5].toString());
         datos.add(reg.asMap()); 
       }
-      return datos;
+      
     }
-    else
-    {
-      return null;
-    }
+    return datos;
     
   }
 
   Future<Recorrido> obtenerDatoId(int id) async {
     final conexion = Conexion();
     final String sql = "select * from public.te_recorrido where rec_id=$id";
-
+    final reg = Recorrido();
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     if(query != null && query.isNotEmpty)
     { 
-        final reg = Recorrido();
+        
         reg.id=int.parse(query[0][0].toString());
         reg.horaInicio=query[0][1].toString();
         reg.horaFin=query[0][2].toString();        
         reg.estado=int.parse(query[0][3].toString());
         reg.senId=int.parse(query[0][4].toString());
         reg.rutId=int.parse(query[0][5].toString());
-        return reg;
+        
     }
-    else
-    {
-      return null;
-    }
-    
+    return reg;
   }
 
   Future<void> ingresar(Recorrido dato) async{

@@ -2,7 +2,7 @@
     function Sesiones($rolPermitido){
         session_start();
         if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {            
-            if($_SESSION['rol']  == $rolPermitido ){
+            if(str_replace(" ","",$_SESSION['rol'])  == $rolPermitido ){
                 
                 $id = $_SESSION['id'];
                 $rol = $_SESSION['rol'];               
