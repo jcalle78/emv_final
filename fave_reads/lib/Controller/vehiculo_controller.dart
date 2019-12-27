@@ -11,9 +11,23 @@ class VehiculoController extends ResourceController {
   }
 
   @Operation.get('id')
-  Future<Response> obtenerListaId(@Bind.path('id') int id) async {
+  Future<Response> obtenerListaId(@Bind.path('id') int id,@Bind.query('opcion') int opcion) async {
+
     final servicio = Vehiculo();
-    return Response.ok(await servicio.obtenerDatoId(id));
+    switch (opcion)
+    {
+      case 1: 
+        return Response.ok(await servicio.obtenerDatoId(id));
+      break;
+       case 2: 
+        return Response.ok(await servicio.obtenerVehiculoFuncionario(id));
+      break;
+      default: 
+         return Response.ok('No ha seleccionado ninguna opcion');
+      break;
+
+    }
+    
   }
 
   @Operation.post()

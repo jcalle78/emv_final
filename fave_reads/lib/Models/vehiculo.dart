@@ -82,6 +82,25 @@ class Vehiculo extends Serializable {
     }
   }
 
+  Future<Vehiculo> obtenerVehiculoFuncionario(int id) async {
+    final conexion = Conexion();
+    final String sql = "select * from public.te_vehiculo where fun_id=$id";
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+    if (query != null && query.isNotEmpty) {
+      final reg = Vehiculo();
+      reg.id = query[0][0].toString();
+      reg.placa = query[0][1].toString();
+      reg.capacidad = query[0][2].toString();
+      reg.estado = query[0][3].toString();
+      reg.tve_id = query[0][4].toString();
+      reg.fun_id = query[0][5].toString();
+      return reg;
+    } else {
+      return null;
+    }
+  }
+
+
 
 
   Future<void> ingresar(Vehiculo dato) async {

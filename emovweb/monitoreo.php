@@ -337,7 +337,9 @@ function cargarVehiculos(id)
 	return produ;				
 	})		
 	.catch(error => { console.log("error",error); return error; });
-}	
+}
+
+
 
 
 function cargarFuncionario(id)

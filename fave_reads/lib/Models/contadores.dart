@@ -30,6 +30,11 @@ class Contadores extends Serializable {
         final servicio = Servicio();
         reg.numero = await servicio.obtenerNumeroElementosPorFuncionario(id);
         break;
+      
+      case 5:  //numero de servicios existentes
+        final servicio = Servicio();
+        reg.numero = await servicio.obtenerElementos(id);
+        break;
 
       default:
         break;
