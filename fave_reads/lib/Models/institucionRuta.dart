@@ -9,9 +9,14 @@ class InstitucionRuta extends Serializable
   int ruta;
   int estado;
  
-   Future<List> obtenerDatos(String est) async {
+   Future<List> obtenerDatos(String campo ,String bus, String est) async {
     final conexion = Conexion();
     // final String sql = "select * from public.te_institucion where $campo::text LIKE '%$bus%' and ins_estado::text LIKE '%$est%' order by ins_id DESC";
+
+//     SELECT ir.ins_id, ir.rut_id, ir.ier_estado, i.ins_nombre, i.ins_ruc, r.rut_nombre, r.rut_cupo_maximo 
+// FROM  public.te_institucion_educativa_ruta ir, public.te_ruta r, public.te_institucion i 
+// where ir.ins_id = i.ins_id and ir.rut_id= r.rut_id  
+
     const String sql = "select * from public.te_institucion_educativa_ruta ";
     print(sql);   
    final List datos=[];

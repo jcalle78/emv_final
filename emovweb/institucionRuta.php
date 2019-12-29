@@ -69,9 +69,6 @@
 	</div>	   
 
 
-
-
-
 <script type="text/javascript">
 	const boton=document.querySelector('#buscar');		
 	const lista=document.querySelector('#lista');	

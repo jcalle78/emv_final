@@ -95,13 +95,9 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/sentido/[:id]').link(() => SentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
-<<<<<<< HEAD
     ..route('/institucionRuta/[:id]').link(() => InstitucionRutaController())
     
     
-=======
-    ..route('/recorridoServicio/[:id]').link(() => RecorridoServicioController())
->>>>>>> 9452b82c59ec91b3067a39f17ea3400c3ee70ec9
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 
 

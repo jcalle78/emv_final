@@ -73,7 +73,7 @@
 	document.getElementById('metodo').value =metodo;
 	var id;
 	if(metodo=='Guardar'){				
-		document.getElementById("est").disabled=true;	
+		//document.getElementById("est").disabled=true;	
 	}if(metodo=='Modificar'){
 		id= parametro.get('id');
 		(async () => {
@@ -102,7 +102,7 @@ function IngMod(v) {
 		idInst.style.borderColor='green';
 		nomInst.style.borderColor="green";	
 		if((idRuta.value=="")||(nomRuta.value=="") ){
-			toastr["error"]("Seleccione una Institución", "Dato Incorrecto!");
+			toastr["error"]("Seleccione una Ruta", "Dato Incorrecto!");
 			idRuta.style.borderColor="red";
 			nomRuta.style.borderColor="red";
 		}else{
@@ -115,28 +115,29 @@ function IngMod(v) {
 	}
 }
 
-function BusInstituion(insid){		
-		fetch(`http://localhost:8888/institucion/${insid}`)
-			.then(response => response.json())
-			.then(data => {		  	
-				var dato=`${data.nombre}`;
-				document.getElementById('nomInst').value = dato;										
-		})  
-		.catch(error => { 
-			toastr.error('No  existe la institucion'); console.log(error);
-			document.getElementById('nomInst').value = "";	
-		})	
-	}
-	$('#idInst').keypress(function (e) {	
-		if (e.which == 13) {
-			event.preventDefault();	
-			var valor=e.target.value;
-			BusInstituion(valor);
-		}
-	});
+function BusInstitucion(insid){		
+	fetch(`http://localhost:8888/institucion/${insid}`)
+	.then(response => response.json())
+	.then(data => {		  	
+			var dato=`${data.nombre}`;
+			document.getElementById('nomInst').value = dato;										
+	})  
+	.catch(error => { 
+		toastr.error('No  existe la institucion'); console.log(error);
+		document.getElementById('nomInst').value = "";	
+	})	
+}
 
-	function BusRuta(insid){		
-		fetch(`http://localhost:8888/rutas?opcion=4&id=${IntitucionPrincipal}&id2=0&campo=${campo}&bus=${textBuscar}&est=${estado}`)
+$('#idInst').keypress(function (e) {	
+	if (e.which == 13) {
+		event.preventDefault();	
+		var valor=e.target.value;		
+		BusInstitucion(valor);
+	}
+});
+
+	function BusRuta(ruta){		
+		fetch(`http://localhost:8888/rutas/${ruta}`)
 			.then(response => response.json())
 			.then(data => {		  	
 				var dato=`${data.nombre}`;
