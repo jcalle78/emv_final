@@ -83,7 +83,7 @@
 		id= parametro.get('id');
 		(async () => {
 			try{
-				let response = await fetch(`${raizServidor}/vehiculo/${id}`);
+				let response = await fetch(`${raizServidor}/vehiculo/${id}?opcion=1`);
 				let data = await response.json();					
 				document.getElementById('placa').value = (data.placa);
 				document.getElementById('capacidad').value = (data.capacidad);				   

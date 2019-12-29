@@ -103,8 +103,8 @@ class Parada extends Serializable
     final conexion = Conexion();
     final String sql = "select * from public.te_parada a ,"
     "(select p.par_id as parada FROM public.te_monitoreo m, public.te_recorrido e,"
-    "public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id and m.mon_fecha_hora>='2019-11-27 00:00:00'"
-    "and m.mon_fecha_hora<='2019-11-27 23:59:59') as h "
+    "public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id and m.mon_fecha_hora>='$fecha 00:00:00'"
+    "and m.mon_fecha_hora<='$fecha 23:59:59') as h "
     "where a.par_id=h.parada";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);

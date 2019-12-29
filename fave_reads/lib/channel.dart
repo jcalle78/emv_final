@@ -4,6 +4,7 @@ import 'package:fave_reads/Controller/monitoreo_controller.dart';
 import 'package:fave_reads/Controller/opcion_controller.dart';
 import 'package:fave_reads/Controller/parada_controller.dart';
 import 'package:fave_reads/Controller/periodo_controller.dart';
+import 'package:fave_reads/Controller/recorridoServicio_controller.dart';
 import 'package:fave_reads/Controller/recorrido_controller.dart';
 import 'package:fave_reads/Controller/ruta_vehiculo_controller.dart';
 import 'package:fave_reads/Controller/sentido_controller.dart';
@@ -94,9 +95,13 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/sentido/[:id]').link(() => SentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
+<<<<<<< HEAD
     ..route('/institucionRuta/[:id]').link(() => InstitucionRutaController())
     
     
+=======
+    ..route('/recorridoServicio/[:id]').link(() => RecorridoServicioController())
+>>>>>>> 9452b82c59ec91b3067a39f17ea3400c3ee70ec9
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 
 

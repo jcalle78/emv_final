@@ -152,6 +152,7 @@ y = n.getFullYear();
 m = n.getMonth() + 1;
 d = n.getDate();
 
+
 //Lo ordenas a gusto.
 document.getElementById("fhasta").value = `${y}-${m}-${d}`;
 document.getElementById("fdesde").value = `${y}-${m}-${d}`;
@@ -337,7 +338,9 @@ function cargarVehiculos(id)
 	return produ;				
 	})		
 	.catch(error => { console.log("error",error); return error; });
-}	
+}
+
+
 
 
 function cargarFuncionario(id)
@@ -362,7 +365,9 @@ function cargarFuncionario(id)
 
 function cargarUbicaciones(id)
 {
-	var url=`http://localhost:8888/monitoreo?id=`+id;
+	
+	var fechaActual=document.getElementById('fdesde').value;
+	var url=`http://localhost:8888/monitoreo?id=${id}&fecha=${fechaActual}`;
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {

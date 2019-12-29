@@ -11,7 +11,7 @@ async function cargarCombo(
   try {
     let response = await fetch(url);
     let data = await response.json();
-    result += '<option value="-1" selected>ELIJA UNA OPCIÓN</option>';
+    result += '';
     for (let pro of data) {
       if (SeleccionarElemento == pro.id)
         result +=

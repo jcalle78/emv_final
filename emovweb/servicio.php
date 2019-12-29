@@ -119,10 +119,10 @@
 <script>
 let parametro = new URLSearchParams(location.search);
 var idRepresentante = parametro.get('id');	
-var idInstitucionEducativa=parametro.get('inst');
-var idInstitucionTransporte=parametro.get('edu');
+var idInstitucionEducativa=parametro.get('edu');
+var idInstitucionTransporte=parametro.get('inst');
 var idConductor=parametro.get('cond');
-
+var rut_id=0;
 var institutoMonitoreo=false;
 var servicioEntrada=true;
 var cooperativa=0;
@@ -137,6 +137,8 @@ cargarEducativa(idInstitucionEducativa)
 if(idConductor != 0)
 {
     comprobarTipo(idConductor);
+    cargarFuncionario(idConductor);
+    cargarVehiculoFun(idConductor);
 }
 
 
@@ -196,6 +198,7 @@ function obtenerValores(e)
     var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
     cargarParadas(elementosTD[2].innerHTML);
     cargarVehiculos(elementosTD[2].innerHTML);
+    rut_id=elementosTD[2].innerHTML;
 }
 
 function CargarFechaActual()
@@ -261,7 +264,7 @@ async function cargarComboEstudiante(
 async function comprobarTipo(cod)
 {
     try {
-    // layerGroup.clearLayers();
+    layerGroup.clearLayers();
     let response = await fetch(`http://localhost:8888/servicio?opcion=1&id=${cod}`);
     let data = await response.json();
     var cont=0;
@@ -276,7 +279,7 @@ async function comprobarTipo(cod)
         cargarParadas(cod.trim());
         document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma, Si el servicio es mixto debera elegir dos paradas diferentes**`;
     }
-    else
+    if(tipoVehiculo == "BUSETA")
     {
         $('#tituloRuta').hide(); 
         $('#divRuta').hide(); 
@@ -324,6 +327,24 @@ function cargarVehiculos(id)
 	.catch(error => { console.log("error",error); return error; });
 }	
 
+function cargarVehiculoFun(id)
+{
+	var cont=0;
+	var funid=0;
+	var result=``;
+	let url= `${raizServidor}/vehiculo/${id}?opcion=2`;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		document.getElementById('plc').value=produ.placa;
+			
+		
+	return produ;				
+	})				
+	.catch(error => { console.log("error",error); return error; });
+}	
+
 
 function cargarEducativa(id)
 {
@@ -353,7 +374,7 @@ function cargarFuncionario(id)
 	.then(produ => {
 		
 		document.getElementById('nomC').value=produ.nombre+" "+produ.apellido;
-			
+		idConductor=produ.id;	
 		
 	return produ;				
 	})		
@@ -364,14 +385,12 @@ function cargarFuncionario(id)
 function agregarUbicacion()
 {
     marker.addTo(map);
-    marker2.addTo(map);
     map.locate({setView: true, maxZoom: 16});
     map.on('locationfound', onLocationFound);
     map.on('dblclick', function(e) 
     {
         var container = L.DomUtil.create('div'),
-            ida = createButton('Agregar IDA', container),
-            vuelta = createButton('Agregar VUELTA', container);
+            ida = createButton('Agregar Parada', container);
 
     
         L.popup()
@@ -388,13 +407,6 @@ function agregarUbicacion()
             map.closePopup();
         });
 
-        L.DomEvent.on(vuelta, 'click', function() 
-        {
-            lati2=e.latlng.lat;
-            long2=e.latlng.lng;
-            marker2.setLatLng(e.latlng).update();
-            map.closePopup();
-        });
         
     });
     
@@ -403,7 +415,7 @@ function agregarUbicacion()
 
 function cargarParadas(id)
 {
-    
+    marker.remove();
 	// let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
     let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
     var cords=[];
@@ -411,7 +423,7 @@ function cargarParadas(id)
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
-		
+		cords=[];
 		if(produ.length > 0)
 		{
             var cont=0;
@@ -420,8 +432,9 @@ function cargarParadas(id)
 			}
             control.setWaypoints(cords);
 
-            for(let prod of produ){	
-            agregarMarcadorAzul(prod.latitud,prod.longuitud,prod.nombre,layerGroup);	
+            for(let prod of produ){
+                var text="id:"+prod.id+",<br>nombre:"+prod.nombre;
+                agregarMarcadorAzul(prod.latitud,prod.longuitud,text,layerGroup);	
             }
 			marker.addTo(map);
 		}
@@ -437,64 +450,121 @@ function IngMod(v)
     var observacion = document.getElementById('observacion').value;
     var tservicio = document.getElementById('tipoServicio').value; 
     var plectivo = document.getElementById('tipoPeriodo').value; 
-    var estudiante = document.getElementById('tipoEstudiante').value; 
-    var idfun = document.getElementById('idfun').value; 
-    var idInst = document.getElementById('idInst').value; 
+    var estudiante = document.getElementById('tipoEstudiante').value;
     var estado = document.getElementById('estado').value; 
     
     event.preventDefault();		
 
-    if(valSololetras(observacion)==false){
+    if(valSololetras(observacion)==false)
+    {
         toastr.error('Ingrese solo letras');
         document.getElementById("observacion").style.borderColor="red";
-    }else{
+    }
+    else
+    {
         document.getElementById("observacion").style.borderColor='#ced4da';
-        if(tservicio < 1){
+        if(tservicio < 1)
+        {
             toastr.error('Debe elegir un tipo de servicio');
             document.getElementById("tipoServicio").style.borderColor="red";
-        }else{ 
+        }
+        else
+        { 
             document.getElementById("tipoServicio").style.borderColor='#ced4da';
-            if(plectivo < 1){
-            toastr.error('Debe elegir un periodo léctivo');
-            document.getElementById("tipoPeriodo").style.borderColor="red";
-        }else{ 
-            document.getElementById("tipoPeriodo").style.borderColor='#ced4da';
-            if(estudiante<1){
-                toastr.error('Debe elegir un estudiante');
-                document.getElementById("tipoEstudiante").style.borderColor="red";
-                }else{ 
+            if(plectivo < 1)
+            {
+                toastr.error('Debe elegir un periodo léctivo');
+                document.getElementById("tipoPeriodo").style.borderColor="red";
+            }
+            else
+            { 
+                document.getElementById("tipoPeriodo").style.borderColor='#ced4da';
+                if(estudiante<1)
+                {
+                    toastr.error('Debe elegir un estudiante');
+                    document.getElementById("tipoEstudiante").style.borderColor="red";
+                }
+                else
+                { 
                     document.getElementById("tipoEstudiante").style.borderColor='#ced4da';
-                    if(valNumeros(idfun)==false){
-                        toastr.error('Debe ingresar solo numeros');
-                        document.getElementById("idfun").style.borderColor="red";
-                    }else{
-                        document.getElementById("idfun").style.borderColor='#ced4da';
-                        if(valNumeros(idInst)==false){
-                            toastr.error('Debe ingresar solo numeros');
-                            document.getElementById("idInst").style.borderColor="red";
-                        }else{
-                            document.getElementById("idInst").style.borderColor='#ced4da';
-                            if(cooperativa == 0 ){
-                                toastr.error('Error en cooperativa');
-                            }else{
-                                if(lati == 0 ){
-                                    toastr.error('Error en latitud');
-                                }else{
-                                    if(long == 0 ){
-                                        toastr.error('Error en longitud');
-                                    }else{
-                                        var parametros= {'id': 0,'fechaRegistro':fregistro,'fechaFin':ffin,'observacion':observacion,'estado':estado,'latitud':lati,'longitud':long,'periodo':plectivo,'cooperativa':cooperativa,'educativa':idInst,'estudiante':estudiante,'funcionario':idfun,'tipoServicio':tservicio};							
-									    var url=`${raizServidor}/servicio`;
-										Ingresar(parametros,url);
+                    if(idInstitucionTransporte == 0 )
+                    {
+                        toastr.error('Error en cooperativa');
+                    }
+                    else
+                    {
+                        if(lati == 0 || long == 0)
+                        {
+                            toastr.error('Error en latitud y longitud ');
+                        }
+                        else
+                        {
+                            var p1;
+                            var p2;
+                            var parametros= {'id': 0,'fechaRegistro':fregistro,'fechaFin':ffin,'observacion':observacion,'estado':estado,'latitud':lati,'longitud':long,'periodo':plectivo,'cooperativa':idInstitucionTransporte,'educativa':idInstitucionEducativa,'estudiante':estudiante,'funcionario':idConductor,'tipoServicio':tservicio};							
+                            console.log(parametros);
+                            var url=`${raizServidor}/servicio`;
+                            var url2=`${raizServidor}/recorridoServicio`;
+                            Ingresar(parametros,url);
+
+                            (async () => {
+                                try{												
+                                    let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
+                                    let data = await response.json();
+                                    alert(data.numero+1);
+                                    if(tservicio==1 || tservicio==2 ||tservicio==3)
+                                    {
+                                            p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
+                                            console.log(p1);
+                                            Ingresar(p1,url2);	
                                     }
+                                    else
+                                    {
+                                            p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
+                                            p2= {'servicio': data.numero+1,'recorrido':recorridos[1],'parada':par[1]};
+                                            console.log(p1);
+                                            console.log(p2);
+                                            Ingresar(p1,url2);
+                                            Ingresar(p2,url2);
+
+                                    }
+                                    recorridos=[];
+                                    par=[];
+                                    											
+                                }catch(e){
+                                    toastr.error('Error al Cargar algunos datos'); 	
                                 }
-                            }
+                            })();	
                         }
                     }
-                }	
-            }
+                }
+            }	
         }
     }
+}
+
+var recorridos=[];
+function obtenerRecorrido(id)
+{
+
+
+    var result=``;
+    let url=`http://localhost:8888/recorrido?id=${id}`;
+
+    fetch(url)
+    .then((res) => {return res.json(); })
+    .then(produ => {
+
+    let result = ``;
+    if(produ.length>0)
+    {
+        for(let prod of produ){
+           recorridos.push(prod.id);
+        }
+    }
+    return produ;
+    })
+    .catch(error => {  console.log("error",error); return error; })
 }
 
 </script>
@@ -523,15 +593,7 @@ var marker=L.marker([0,0], {icon: greenIcon})
     .bindPopup(`Parada Seleccionada`)
     .on('mouseover', onClick);
 
-var marker2=L.marker([0,0], {icon: greenIcon})
-    .bindPopup(`Parada Seleccionada`)
-    .on('mouseover', onClick);
-//Marcador en la Ciudad de Cuenca				
-/*L.marker([-2.901866, -79.006055],{title: '1'})
-    .addTo(map)aaaaaaaaaaaa
-    
-    .bindPopup('Ciudad de Cuenca.')
-    .openPopup();*/
+
 
 var control = L.Routing.control(L.extend( {
     waypoints: [null],
@@ -584,8 +646,13 @@ function onClick(e) {
     this.openPopup();
 }
 
+var par=[];
 function obtenerDatosParada(e) {
     
+    obtenerRecorrido(rut_id);
+    var datos=this._popup.getContent().split(",");
+    var datos1=datos[0].split(":");
+    par.push(datos1[1]);
     marker.setLatLng(this.getLatLng()).update();
     marker.openPopup();
     lati=e.latlng.lat;
