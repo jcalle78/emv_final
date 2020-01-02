@@ -1,6 +1,6 @@
 <?php include 'header.php'; 
     include 'codigophp/sesion.php';	 
-    $menu=Sesiones("EMOV"); 
+    $menu=Sesiones("EMPRESADETRANSPORTE"); 
 ?>
 
 
@@ -40,8 +40,11 @@
             </select>
         </div>
 
-        <div class="col-md-4 mt-3" id="buscar">
+        <div class="col-md-1 mt-3" id="buscar">
                 <a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
+        </div>
+        <div class="col-md-3 mt-3" id="importar">
+                <a href="importar.php" class="btn grey"><i class="fas fa-file-import mr-2 "></i>IMPORTAR</a>
         </div>
     </div>
 
