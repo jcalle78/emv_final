@@ -67,7 +67,8 @@
 <?php include 'footer.php'; ?>
 
 <script type="text/javascript">
-	
+	var institutoMonitoreo =false;
+
 	let parametro = new URLSearchParams(location.search);
 	var metodo = parametro.get('metodo');		
 	document.getElementById('metodo').value =metodo;

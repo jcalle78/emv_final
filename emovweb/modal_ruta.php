@@ -23,7 +23,7 @@
 
 					<div class="col-md-3">
 						<label for="txtuser">Buscar:</label>
-						<input type="text" id="textBuscarl" name="textBuscar" class="form-control text-uppercase">     
+						<input type="text" id="textBuscarRuta" name="textBuscarRuta" class="form-control text-uppercase">     
 					</div>
 
 					<div class="col-md-3">
@@ -79,7 +79,7 @@
 			event.preventDefault();
 
 			var campo = document.getElementById('campo').value;			
-			var textBuscar=document.getElementById('textBuscarl').value;
+			var textBuscar=document.getElementById('textBuscarRuta').value;
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("estadol").value;
 			

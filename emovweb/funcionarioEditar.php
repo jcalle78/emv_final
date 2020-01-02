@@ -124,7 +124,7 @@
 	}	
 
 
-	function IngMod(v) {	
+	async function IngMod(v) {	
 						
 		event.preventDefault();	
 
@@ -164,26 +164,24 @@
 									nomInst.style.borderColor="red";
 								}else{
 									idInst.style.borderColor='green';
-									nomInst.style.borderColor="green";								
-
-									var parametros={"id":0,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":est.value,"institutoId":idInst.value};							
+									nomInst.style.borderColor="green";			
+									var parametros={"id":0,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":document.getElementById("est").value,"institutoId":idInst.value};							
 									var url=`${raizServidor}/funcionario`;	
-									
+									var institutoMonitoreo =false;
+
 									if(v.value=="Guardar"){
-										Ingresar(parametros,url);
-										 (async () => {
-											try{												
-												let response = await fetch(`${raizServidor}/contadores?opcion=3&id=0`);
-												let data = await response.json();	
-												var urlUsuario=`${raizServidor}/usuario`;
-												var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
-												//console.log(ParametrosUsuario);
-												//alert(data.numero);
-												Ingresar(ParametrosUsuario,urlUsuario);												
-											}catch(e){
-												toastr.error('Error al Cargar algunos datos'); 	
-											}
-										})();								
+										Ingresar(parametros,url);										
+										try{												
+											let response = await fetch(`${raizServidor}/contadores?opcion=3&id=0`);
+											let data = await response.json();	
+											var urlUsuario=`${raizServidor}/usuario`;
+											var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
+																						
+											Ingresar(ParametrosUsuario,urlUsuario);			
+
+										}catch(e){
+											toastr.error('Error al Cargar algunos datos'); 	
+										}							
 									}	
 									if(v.value=="Modificar"){
 										let redirigir="funcionario.php";
