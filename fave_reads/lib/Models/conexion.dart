@@ -1,12 +1,10 @@
 import 'package:postgres/postgres.dart';
 
 class Conexion {
-    PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov",username: "postgres", password: "1234");
-  //PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov", username: "postgres", password: "admin");
-  // PostgreSQLConnection conexion = PostgreSQLConnection("192.168.137.1", 5432, "scolar", username: "postgres", password: "Arthuroz3");
+    // PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov",username: "postgres", password: "1234");
+    PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov", username: "postgres", password: "admin");
   Future conectar() async {
     await conexion.open();
-    print('conexion establecida');
   }
 
   Future desconectar() async {

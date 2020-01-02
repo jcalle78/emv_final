@@ -176,12 +176,13 @@
 											let data = await response.json();	
 											var urlUsuario=`${raizServidor}/usuario`;
 											var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
-																						
-											Ingresar(ParametrosUsuario,urlUsuario);			
+											Ingresar(ParametrosUsuario,urlUsuario)
+											// setTimeout(Ingresar(ParametrosUsuario,urlUsuario),3000);			
 
 										}catch(e){
 											toastr.error('Error al Cargar algunos datos'); 	
-										}							
+										}
+																
 									}	
 									if(v.value=="Modificar"){
 										let redirigir="funcionario.php";
