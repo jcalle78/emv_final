@@ -1,7 +1,7 @@
 <?php 
 	include 'header.php'; 
 	include 'codigophp/sesion.php';
-	$menu=Sesiones("EMPRESADETRANSPORTE"); 
+	$menu=Sesiones("EMOV"); 
     include 'vehiculo_modal_select_funcionario.php';  
 ?>	
 	<div class="container text-align-left mt-2 ">
