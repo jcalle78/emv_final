@@ -16,10 +16,10 @@ class EstudianteRepresentanteController extends ResourceController{
   }
 
   @Operation.put('id')
-  Future<Response> modificarEstudiante(@Bind.path('id') int id,@Bind.body() EstudianteRepresentante body) async
+  Future<Response> modificarEstudiante(@Bind.path('id') int id) async
   {
     final servicio = EstudianteRepresentante();
-    await servicio.modificar(id, body);
+    await servicio.modificar(id);
     return Response.ok('se ha modificado');
   }
 
