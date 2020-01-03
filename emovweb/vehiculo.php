@@ -1,6 +1,6 @@
 <?php include 'header.php'; 
     include 'codigophp/sesion.php';
-    $menu=Sesiones("EMPRESADETRANSPORTE"); 
+    $menu=Sesiones("EMOV"); 
 ?>
 
 <div class="container-fluid grey pr-0 pl-0">

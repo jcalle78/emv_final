@@ -207,6 +207,10 @@ function CargarFechaActual()
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
+    if(m<10)
+        m="0"+m;
+    if(d<10)
+        d="0"+d;
     document.getElementById("fregistro").value = `${y}-${m}-${d}`;
     document.getElementById("ffin").value = `${y}-${m}-${d}`;
 
@@ -511,7 +515,7 @@ function IngMod(v)
                                 try{												
                                     let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
                                     let data = await response.json();
-                                    alert(data.numero+1);
+                                    // alert(data.numero);
                                     if(tservicio==1 || tservicio==2 ||tservicio==3)
                                     {
                                             p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};

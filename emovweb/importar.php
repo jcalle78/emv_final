@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,6 +20,15 @@
 </head>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+=======
+
+<?php include 'header.php'; 
+    include 'codigophp/sesion.php';
+	$menu=Sesiones("EMPRESADETRANSPORTE"); 
+	include 'funcionario_modal_selec_institucion.php'; 
+?>
+
+>>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 <script type="text/javascript">
 function desactivar()
 	{
@@ -41,7 +51,11 @@ $(document).ready(function(){
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<?php
+<<<<<<< HEAD
 		include 'funcionario_modal_selec_institucion.php';
+=======
+		include 'modalFuncionario.php';
+>>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 	?>
 
 <div class="container text-left mt-2 text-uppercase">
@@ -61,8 +75,13 @@ $(document).ready(function(){
 
 		<h5 class="container text-center mt-2 text-uppercase"><strong >Datos de la Institucion </strong></h5>
 			Desactivar  periodos anteriores: <input type="checkbox" id="myCheck" class="case" >
+<<<<<<< HEAD
 			<input type='hidden' id= "des" value="false" name="des" >
 			<script>$("input.case").click(desactivar);</script>
+=======
+			<input type='text' id= "des" value="false" name="des" >
+			<script>$("input.case").click(desactivar);</script>			
+>>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 				<div class=" row">
 						<label class="col-md-3  col-form-label align-self-center">C?digo:</label>
 						<div class="col-md-3 align-self-center">
@@ -123,7 +142,11 @@ $(document).ready(function(){
 
 
 	function BusInstituion(insid){
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 		fetch(`http://localhost:8888/institucion/${insid}`)
 			.then(response => response.json())
 			.then(data => {
@@ -144,6 +167,7 @@ $(document).ready(function(){
 
 		}
 	});
+<<<<<<< HEAD
 
 	</script>
 
@@ -156,3 +180,7 @@ $(document).ready(function(){
 
 	</body>
 	</html>
+=======
+	</script>
+<?php include 'footer.php'; ?>
+>>>>>>> 2254ff942b1937741162f548542c2e5b879c1572

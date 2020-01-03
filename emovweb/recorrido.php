@@ -1,5 +1,4 @@
 <?php include 'header.php'; 
-	//  $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 ?>
 <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
@@ -20,9 +19,9 @@
 					window.onload = function()
 					{ 
 						IntitucionPrincipal=$institutoId;                  
-					document.getElementById('rol').innerHTML ='ROL: $rol';
-					document.getElementById('btncerrar').style.display = 'block';
-					cargarComboSentido();
+						document.getElementById('rol').innerHTML ='ROL: $rol';
+						document.getElementById('btncerrar').style.display = 'block';
+						cargarComboSentido();
 				};                      
 				</script>
         ";
