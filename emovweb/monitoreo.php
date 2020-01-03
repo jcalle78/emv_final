@@ -4,25 +4,27 @@
 <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
 
  <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-						document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
+	 session_start();
+	 if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
+			 
+			 $id = $_SESSION['id'];
+			 $rol = $_SESSION['rol'];               
+			 $menu=$_SESSION['menu'];   
+			 $institutoId=$_SESSION['institutoId'];
+			 $nombreUser=$_SESSION['nombreUser'];
+
+			 echo " <script> 
+					 var IntitucionPrincipal=0;
+					 window.onload = function()
+					 { 
+						 IntitucionPrincipal=$institutoId;
+						 document.getElementById('name').innerHTML='$nombreUser';
+						 document.getElementById('rol').innerHTML ='ROL: $rol';
+						 document.getElementById('btncerrar').style.display = 'block';
+					 };                      
+					 </script>" ;
+	 }else 
+		 header('Location: ./');
 
   include 'funcionario_modal_selec_institucion.php';
   
@@ -151,6 +153,11 @@ n =  new Date();
 y = n.getFullYear();
 m = n.getMonth() + 1;
 d = n.getDate();
+
+if(m<10)
+	m="0"+m;
+if(d<10)
+	d="0"+d;
 
 
 //Lo ordenas a gusto.
@@ -401,9 +408,9 @@ function cargarUbicaciones(id)
 
 			var control = L.Routing.control(L.extend( {
 				waypoints: [null],
-				routeWhileDragging: false,
-				reverseWaypoints: false,
-				showAlternatives: false,
+				routeWhileDragging: true,
+				reverseWaypoints: true,
+				showAlternatives: true,
 				altLineOptions: {
 					styles: [
 						{color: 'black', opacity: 0.15, weight: 9},
