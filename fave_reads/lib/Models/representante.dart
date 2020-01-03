@@ -87,8 +87,8 @@ class Representante extends Serializable
 
   Future<void> ingresar(Representante dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_representante(rep_id, rep_cedula, rep_nombre, rep_apellido, rep_direccion,rep_telefono, rep_celular,rep_correo,rep_estado)"
-   " VALUES (${dato.id},'${dato.cedula}', '${dato.nombre}','${dato.apellido}','${dato.direccion}','${dato.telefono}', '${dato.celular}','${dato.correo.replaceAll('@','*')}',${dato.estado})";
+    final String sql = "INSERT INTO public.te_representante(rep_cedula, rep_nombre, rep_apellido, rep_direccion,rep_telefono, rep_celular,rep_correo,rep_estado)"
+   " VALUES ('${dato.cedula}', '${dato.nombre}','${dato.apellido}','${dato.direccion}','${dato.telefono}', '${dato.celular}','${dato.correo.replaceAll('@','*')}',${dato.estado})";
     print(sql);
     await conexion.operaciones(sql);
   }

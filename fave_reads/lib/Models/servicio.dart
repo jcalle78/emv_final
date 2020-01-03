@@ -28,6 +28,7 @@ class Servicio extends Serializable {
     if (query != null && query.isNotEmpty) {
       datos = int.parse(query[0][0].toString());
     }
+    print(datos);
     return datos;
   }
   

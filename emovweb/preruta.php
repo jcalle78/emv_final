@@ -159,10 +159,7 @@
                         <td class ="boton"> ${prod.descripcion}</td>
                         <td class ="boton"> ${prod.cupoMaximo}</td>
                         <td class ="boton"> ${prod.estado==1?"Activo":"Inactivo"} </td>
-                        <td>
-                            <?php echo "<a href="?>RutaEditar.php?id=${prod.id}
-                            <?php echo "class='fas fa-edit'>Editar</a>" ?>
-                        </td>
+                        <td><a href='RutaEditar.php?id=${prod.id}&metodo=Modificar' class='fas fa-edit'>Editar</a></td>
                     </tr>`;
                     cont++;
                 }
@@ -174,10 +171,7 @@
                         <td class ="boton"> ${prod.descripcion}</td>
                         <td class ="boton"> ${prod.cupoMaximo}</td>
                         <td class ="boton"> ${prod.estado==1?"Activo":"Inactivo"} </td>
-                        <td>
-                            <?php echo "<a href="?>RutaEditar.php?id=${prod.id}
-                            <?php echo "class='fas fa-edit'>Editar</a>" ?>
-                        </td>
+                        <td><a href='RutaEditar.php?id=${prod.id}&metodo=Modificar' class='fas fa-edit'>Editar</a></td>
                     </tr>`;
                 }
                

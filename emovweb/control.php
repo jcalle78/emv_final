@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <script type="text/javascript" src="js/jspdf/js/jquery/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="js/jspdf/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 	<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
@@ -9,8 +8,6 @@
 	<script type="text/javascript" src="js/jspdf/jspdf.plugin.split_text_to_size.js"></script>
 	<script type="text/javascript" src="js/jspdf/jspdf.plugin.from_html.js"></script>
 
-=======
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 <script>
 function Ceros(idi) {
     
@@ -80,11 +77,7 @@ function IngresarR(parametros) {
 	}
 
     function BusRepresentante(ced){
-<<<<<<< HEAD
        
-=======
-
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 		fetch(`http://localhost:8888/representante?campo=rep_cedula&valor=${ced}&estado=1`)
 			.then(response => response.json())
 			.then(data => {
@@ -94,13 +87,7 @@ function IngresarR(parametros) {
                     document.getElementById('repId').value =0;
                 }
                 else{
-<<<<<<< HEAD
                 var dato=`${data[0].id}`;
-=======
-
-                var dato=`${data[0].id}`;
-
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 				document.getElementById('repId').value = dato;
                 }
 		})
@@ -134,11 +121,7 @@ function IngresarR(parametros) {
 }
 
 function BusEstudiante2(ced){
-<<<<<<< HEAD
     
-=======
-    alert("estre");
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
 fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
 .then(response => response.json())
 .then(data => {
@@ -188,20 +171,14 @@ fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
                             var ced='$data[6]';
                             var cedE='$data[0]';
                             var error='';
-                            var cont=BusEstudiante2(cedE);
-<<<<<<< HEAD
+                            var cont=(cedE);
                            // alert(cont);
                             if()
                             {
                             // alert('entre if ');
-=======
-                            alert(cont);
-                            if()
-                            {
-                             alert('entre if ');
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
                             }//fin if(BusEstudiante2(cedE)>0)
                             else {
+                                var cont=BusEstudiante2(cedE);
                                             BusRepresentante(ced); 
                                             setTimeout(function(){ var repId=document.getElementById('repId').value;
                                                 if(repId!=0){
@@ -274,10 +251,7 @@ fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
         }//fin if(des=true)
          else
          {
-<<<<<<< HEAD
              
-=======
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
             if(strtolower(end($chk_ext)) == "csv")
             {
                 //si es correcto, entonces damos permisos de lectura para subir
@@ -293,16 +267,8 @@ fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
                    }
                    else
                    {
-<<<<<<< HEAD
                                $inst= $_POST['inst'];
                                echo"<script>
-=======
-                       
-                       
-                               $inst= $_POST['inst'];
-                               echo"<script>
-   
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
                                var noIngresado = [];
                                var i=0;
                                var ced='$data[6]';
@@ -319,18 +285,9 @@ fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
                                    var parametros2={'estId':eI,repId:rI};
                                IngresarRE(parametros2);})
                                }//fin If
-<<<<<<< HEAD
                                    else{    
                                    noIngresado[i]= 'Estudiante con la cedula ->$data[0] no se ingreso';
                                    i++;
-=======
-                                   else{
-   
-                                   noIngresado[i]= 'Estudiante con la cedula ->$data[0] no se ingreso';
-                                   i++;
-                                   error+='$data[0]';
-   
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
                                    }//fin else
                                    ; }, 500);//fin setTimeout
                                </script>";
@@ -352,11 +309,7 @@ fetch(`http://localhost:8888/estudiante?campo=est_cedula&valor=${ced}&estado=0`)
                    for(var i = 0, textlength = noIngresado.length ; i < textlength ; i++) {
    
                        var splitTitle = doc.splitTextToSize(noIngresado[i], lengthOfPage);
-<<<<<<< HEAD
                        
-=======
-   
->>>>>>> 2254ff942b1937741162f548542c2e5b879c1572
                        //loop thru each line and output while increasing the vertical space
                        for(var c = 0, stlength = splitTitle.length ; c < stlength ; c++){
                            if(y<300){

@@ -423,7 +423,6 @@ function agregarUbicacion()
 var bnd=false;
 function cargarParadas(id)
 {
-    alert(bnd);
     if(bnd)
     {
         layerGroup.remove(map);
@@ -521,36 +520,37 @@ function IngMod(v)
                             var url=`${raizServidor}/servicio`;
                             var url2=`${raizServidor}/recorridoServicio`;
                             Ingresar(parametros,url);
-                            if(idConductor == 0)
-                            {
-                                (async () => {
-                                    try{												
-                                        let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
-                                        let data = await response.json();
-                                        if(tservicio==1 || tservicio==2 ||tservicio==3)
-                                        {
-                                                p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
-                                                console.log(p1);
-                                                Ingresar(p1,url2);	
-                                        }
-                                        else
-                                        {
-                                                p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
-                                                p2= {'servicio': data.numero+1,'recorrido':recorridos[1],'parada':par[1]};
-                                                console.log(p1);
-                                                console.log(p2);
-                                                Ingresar(p1,url2);
-                                                Ingresar(p2,url2);
+                        
+                            setTimeout(() => {
+                                if(parametro.get('cond') == 0)
+                                {
+                                    (async () => {
+                                        try{												
+                                            let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
+                                            let data = await response.json();
+                                            if(tservicio==1 || tservicio==2 ||tservicio==3)
+                                            {
+                                                    p1= {'servicio': data.numero,'recorrido':recorridos[0],'parada':par[0]};
+                                                    Ingresar(p1,url2);	
+                                            }
+                                            else
+                                            {
+                                                    p1= {'servicio': data.numero,'recorrido':recorridos[0],'parada':par[0]};
+                                                    p2= {'servicio': data.numero,'recorrido':recorridos[1],'parada':par[1]};
+                                                    Ingresar(p1,url2);
+                                                    Ingresar(p2,url2);
 
+                                            }
+                                            recorridos=[];
+                                            par=[];
+                                                                                        
+                                        }catch(e){
+                                            toastr.error('Error al Cargar algunos datos'); 	
                                         }
-                                        recorridos=[];
-                                        par=[];
-                                                                                    
-                                    }catch(e){
-                                        toastr.error('Error al Cargar algunos datos'); 	
-                                    }
-                                })();	
-                            }
+                                    })();	
+                                }
+                                
+                            }, 2000);
                         }
                     }
                 }

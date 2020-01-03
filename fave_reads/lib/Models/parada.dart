@@ -105,7 +105,7 @@ class Parada extends Serializable
     "(select p.par_id as parada FROM public.te_monitoreo m, public.te_recorrido e,"
     "public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id and m.mon_fecha_hora>='$fecha 00:00:00' "
     "and m.mon_fecha_hora<='$fecha 23:59:59') as h "
-    "where a.par_id=h.parada";
+    "where a.par_id=h.parada order by par_orden ";
 
     print(sql);
     final List datos=[];
@@ -128,6 +128,7 @@ class Parada extends Serializable
         datos.add(reg.asMap()); 
       }
     }
+      print(datos);
       return datos;
     
   }
