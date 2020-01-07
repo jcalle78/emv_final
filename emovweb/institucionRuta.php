@@ -17,8 +17,8 @@
     <div class="col-md-3">
             <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
-                <option value="ins_nombre" selected>NOMBRE</option>
-                <option value="ins_ruc">RUC</option>
+                <option value="ins_nombre" selected>NOMBRE INSTITUCIÓN</option>
+                <option value="rut_nombre">NOMBRE RUTA</option>
             </select>
         </div>
 
@@ -47,16 +47,16 @@
                 <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                 <thead class='cyan white-text'>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">RUC</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">DIRECCIÓN</th> 
-                        <th scope="col">TELÉFONO</th>  
+                        <th scope="col">INS ID</th>
+                        <th scope="col">RUTA ID</th>
+                        <th scope="col">INSTITUCIÓN</th> 
+                        <th scope="col">RUTA</th>  
+                        <th scope="col">CUPO MÁXIMO</th>  
                         <th scope="col">ESTADO</th>  
                         <th></th> 
                     </tr>
                 </thead>
-                <tbody  id="lista" >
+                <tbody  id="listaInsRuta" >
                     <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
                 </tbody>
                 </table>
@@ -71,17 +71,43 @@
 
 <script type="text/javascript">
 	const boton=document.querySelector('#buscar');		
-	const lista=document.querySelector('#lista');	
+	const lista=document.querySelector('#listaInsRuta');	
+   
 
 	async function Buscar(){	
 		event.preventDefault();
-			try{
-				let response = await fetch(`${raizServidor}/institucionRuta?est`);
-				let data = await response.json();   
-				console.log(data);
-			}catch(e){
-					toastr.error('Error al Cargar algunos datos'); 	
+        var campo = document.getElementById('campo').value;
+        var textBuscar=document.getElementById('textBuscar').value;
+        textBuscar=textBuscar.toUpperCase();	
+        var estado=document.getElementById("estBusqueda").value;
+        lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		
+        // try{
+            let response = await fetch(`${raizServidor}/institucionRuta?campo=${campo}&bus=${textBuscar}&est=${estado}`);
+            let data = await response.json(); 
+            // console.log(data);  
+            let result="";		
+            est="";
+			for(let prod of data){						
+				result +=
+				`<tr> 
+					<td> ${prod.insId}</td>
+					<td> ${prod.rutaId}</td>
+                    <td> ${prod.insNombre}</td>
+                    <td> ${prod.rutaNombre}</td>
+                    <td class="text-center"> ${prod.rutaCupo}</td>
+					<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+					<td>
+						<?php echo "<a href="?>institucionRutaEditar.php?metodo=Modificar&insId=${prod.insId}&rutaId=${prod.rutaId}
+						<?php echo "class='fas fa-edit'>Editar</a>"?>
+					</td>
+				</tr>`;										
 			}
+			result += `</table> `;
+			lista.innerHTML=result;	
+        // }catch(e){
+        //         toastr.error('Error al Cargar algunos datos'); 	
+        // }
 			
 	}
 	boton.addEventListener('click',Buscar);

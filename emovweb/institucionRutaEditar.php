@@ -1,6 +1,7 @@
 <?php include 'header.php'; 
 	include 'codigophp/sesion.php';
-    $menu=Sesiones("EMOV");
+	$menu=Sesiones("EMOV");
+	
 	include 'funcionario_modal_selec_institucion.php';
 	include 'modal_ruta.php';
 ?>
@@ -51,11 +52,23 @@
 							</div>
 									
 						</div>
+
+						<div class="row">
+                            <label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
+                            <div class="col-md-6">
+                                <SELECT id="estado"  class="browser-default custom-select"> 
+                                    <OPTION VALUE="1" selected >ACTIVO</OPTION>
+                                    <OPTION VALUE="0">INAACTIVO</OPTION>
+                                </SELECT> 
+                            </div>
+                        </div>		
 						
 						<div class="text-white row justify-content-center mt-3">
 							<input class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
 							<input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'institucionRuta.php';"/><br/>
-						</div>						
+						</div>
+
+										
 					</form>		
 
                 </div>
@@ -72,23 +85,16 @@
 	let parametro = new URLSearchParams(location.search);
 	var metodo = parametro.get('metodo');		
 	document.getElementById('metodo').value =metodo;
-	var id;
+	var insId, rutaId;
 	if(metodo=='Guardar'){				
-		//document.getElementById("est").disabled=true;	
+		document.getElementById("estado").disabled=true;	
 	}if(metodo=='Modificar'){
-		id= parametro.get('id');
-		(async () => {
-			try{
-				let response = await fetch(`${raizServidor}/funcionario/${id}`)
-				let data = await response.json();				
-				document.getElementById('idInst').value = (data['ins']);
-				document.getElementById('idRuta').value = (data['ruta']);
-				BusInstituion(data['ins']);
-				BusRuta(data['ruta']);
-			}catch(e){
-				toastr.error('Error al Cargar algunos datos'); 	
-			}
-		})();	
+		insId = parametro.get('insId');
+		rutaId = parametro.get('rutaId');	
+		document.getElementById('idInst').value = insId;
+		document.getElementById('idRuta').value = rutaId;				
+		BusInstitucion(insId);
+		BusRuta(rutaId);				
 	}	
 
 
@@ -110,8 +116,18 @@ function IngMod(v) {
 			idRuta.style.borderColor='green';
 			nomRuta.style.borderColor="green";	
 
-			var parametros={"ins":idInst.value,"ruta":idInst.value,"estado":1};							
-			var url=`${raizServidor}/funcionario`;
+			var parametros={"insId": idInst.value,"rutaId":idInst.value,"insNombre":"","rutaNombre":"","rutaCupo":0,"estado": document.getElementById("estado").value};							
+			console.log("ty",parametros);
+			var urlRutaIns=`${raizServidor}/institucionRuta`;
+			if(v.value=="Guardar"){	
+				Ingresar(parametros,urlRutaIns);
+			}	
+			if(v.value=="Modificar"){
+				// let para = new URLSearchParams(location.search);				
+				// var id=para.get('id');
+				// let redirigir="tipoSentido.php";
+				// Modificar(parametros,`${url}/${id}`,redirigir);
+			}
 		}
 	}
 }

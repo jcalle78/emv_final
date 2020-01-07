@@ -1,11 +1,6 @@
 var raizServidor = "http://localhost:8888";
 
-async function cargarCombo(
-  url,
-  nombreCombo,
-  divContenedor,
-  SeleccionarElemento
-) {
+async function cargarCombo(url,nombreCombo,divContenedor,SeleccionarElemento) {
   divContenedor.innerHTML = `<div class='text-center'><div class='spinner-border text-info' role='status'><span class='sr-only'>Loading...</span></div></div>`;
   var result = `<select id='${nombreCombo}' class='browser-default custom-select'>`;
   try {
