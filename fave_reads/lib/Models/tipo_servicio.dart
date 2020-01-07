@@ -12,7 +12,7 @@ class TipoServicio extends Serializable
  
  Future<List> obtenerDatos(String campo, String bus, String est) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_tipo_servicio where $campo::text LIKE '%$bus%' and tse_estado::text LIKE '%$est%' order by tse_id DESC";
+    final String sql = "select * from public.te_tipo_servicio where $campo::text LIKE '%$bus%' and tse_estado::text LIKE '%$est%' order by tse_id";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

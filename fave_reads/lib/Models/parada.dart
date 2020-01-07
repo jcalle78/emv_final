@@ -45,7 +45,7 @@ class Parada extends Serializable
 
    Future<List> obtenerParadaRuta(int id) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_parada p, public.te_ruta u,public.te_recorrido r where r.rut_id=u.rut_id and r.rec_id=p.rec_id and r.rut_id=$id order by 1";
+    final String sql = "select * from public.te_parada p, public.te_ruta u,public.te_recorrido r where r.rut_id=u.rut_id and r.rec_id=p.rec_id and r.rut_id=$id order by 3";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     print(sql);
@@ -103,9 +103,11 @@ class Parada extends Serializable
     final conexion = Conexion();
     final String sql = "select * from public.te_parada a ,"
     "(select p.par_id as parada FROM public.te_monitoreo m, public.te_recorrido e,"
-    "public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id and m.mon_fecha_hora>='$fecha 00:00:00'"
+    "public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id and m.mon_fecha_hora>='$fecha 00:00:00' "
     "and m.mon_fecha_hora<='$fecha 23:59:59') as h "
-    "where a.par_id=h.parada";
+    "where a.par_id=h.parada order by par_orden ";
+
+    print(sql);
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -126,6 +128,7 @@ class Parada extends Serializable
         datos.add(reg.asMap()); 
       }
     }
+      print(datos);
       return datos;
     
   }

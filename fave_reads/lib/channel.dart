@@ -21,6 +21,7 @@ import 'Controller/institucion_controller.dart';
 import 'Controller/objetos_perdidos_controller.dart';
 import 'Controller/opcion_hijos_controller.dart';
 import 'Controller/opcion_rol_controller.dart';
+import 'Controller/recorridoServicio_controller.dart';
 import 'Controller/representante_controller.dart';
 import 'Controller/rol_controller.dart';
 import 'Controller/ruta_controller.dart';
@@ -30,6 +31,7 @@ import 'Controller/usuario_rol_controller.dart';
 import 'Controller/vehiculo_controller.dart';
 import 'fave_reads.dart';
 
+//test
 /// This type initializes an application.
 ///
 /// Override methods in this class to set up routes and initialize services like
@@ -96,7 +98,7 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
     ..route('/institucionRuta/[:id]').link(() => InstitucionRutaController())
     
-    
+    ..route('/recorridoServicio/[:id]').link(() => RecorridoServicioController())
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 
 

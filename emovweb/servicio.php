@@ -107,7 +107,7 @@
 				</div>
 
                 <div class="row justify-content-center mt-3 mr-5">
-					<input value="Guardar" class="btn cyan text-white" onclick="IngMod(this)"  value="GUARDAR"/>
+					<input type="submit" value="Guardar" class="btn cyan text-white" onclick="IngMod(this)"  value="GUARDAR"/>
 		
 				</div>
             </form>
@@ -131,6 +131,7 @@ var lati=0;
 var long=0;
 var lati2=0;
 var long2=0;
+var layerGroup;
 CargarFechaActual();
 cargarEducativa(idInstitucionEducativa)
 
@@ -199,6 +200,7 @@ function obtenerValores(e)
     cargarParadas(elementosTD[2].innerHTML);
     cargarVehiculos(elementosTD[2].innerHTML);
     rut_id=elementosTD[2].innerHTML;
+    bnd=false;
 }
 
 function CargarFechaActual()
@@ -207,6 +209,10 @@ function CargarFechaActual()
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
+    if(m<10)
+        m="0"+m;
+    if(d<10)
+        d="0"+d;
     document.getElementById("fregistro").value = `${y}-${m}-${d}`;
     document.getElementById("ffin").value = `${y}-${m}-${d}`;
 
@@ -272,11 +278,13 @@ async function comprobarTipo(cod)
       if (cont==0)
         tipoVehiculo=pro.nombre;
     }
+    
+    
     if(tipoVehiculo == "BUS")
     {
         $('#tituloRuta').show(); 
         $('#divRuta').show(); 
-        cargarParadas(cod.trim());
+        // cargarParadas(cod.trim());
         document.getElementById('textoElegirServicio').innerHTML=`**Para seleccionar la parada solamente es necesario dar click sobre la misma, Si el servicio es mixto debera elegir dos paradas diferentes**`;
     }
     if(tipoVehiculo == "BUSETA")
@@ -412,10 +420,14 @@ function agregarUbicacion()
     
 }
 
-
+var bnd=false;
 function cargarParadas(id)
 {
-    marker.remove();
+    if(bnd)
+    {
+        layerGroup.remove(map);
+        marker.remove();
+    }
 	// let url= `http://localhost:8888/parada?opcion=2&dato=${id}`;
     let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
     var cords=[];
@@ -436,7 +448,9 @@ function cargarParadas(id)
                 var text="id:"+prod.id+",<br>nombre:"+prod.nombre;
                 agregarMarcadorAzul(prod.latitud,prod.longuitud,text,layerGroup);	
             }
+            layerGroup.addTo(map);
 			marker.addTo(map);
+            bnd=true;
 		}
 		return produ;	
 		})		
@@ -506,35 +520,37 @@ function IngMod(v)
                             var url=`${raizServidor}/servicio`;
                             var url2=`${raizServidor}/recorridoServicio`;
                             Ingresar(parametros,url);
+                        
+                            setTimeout(() => {
+                                if(parametro.get('cond') == 0)
+                                {
+                                    (async () => {
+                                        try{												
+                                            let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
+                                            let data = await response.json();
+                                            if(tservicio==1 || tservicio==2 ||tservicio==3)
+                                            {
+                                                    p1= {'servicio': data.numero,'recorrido':recorridos[0],'parada':par[0]};
+                                                    Ingresar(p1,url2);	
+                                            }
+                                            else
+                                            {
+                                                    p1= {'servicio': data.numero,'recorrido':recorridos[0],'parada':par[0]};
+                                                    p2= {'servicio': data.numero,'recorrido':recorridos[1],'parada':par[1]};
+                                                    Ingresar(p1,url2);
+                                                    Ingresar(p2,url2);
 
-                            (async () => {
-                                try{												
-                                    let response = await fetch(`${raizServidor}/contadores?opcion=5&id=0`);
-                                    let data = await response.json();
-                                    alert(data.numero+1);
-                                    if(tservicio==1 || tservicio==2 ||tservicio==3)
-                                    {
-                                            p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
-                                            console.log(p1);
-                                            Ingresar(p1,url2);	
-                                    }
-                                    else
-                                    {
-                                            p1= {'servicio': data.numero+1,'recorrido':recorridos[0],'parada':par[0]};
-                                            p2= {'servicio': data.numero+1,'recorrido':recorridos[1],'parada':par[1]};
-                                            console.log(p1);
-                                            console.log(p2);
-                                            Ingresar(p1,url2);
-                                            Ingresar(p2,url2);
-
-                                    }
-                                    recorridos=[];
-                                    par=[];
-                                    											
-                                }catch(e){
-                                    toastr.error('Error al Cargar algunos datos'); 	
+                                            }
+                                            recorridos=[];
+                                            par=[];
+                                                                                        
+                                        }catch(e){
+                                            toastr.error('Error al Cargar algunos datos'); 	
+                                        }
+                                    })();	
                                 }
-                            })();	
+                                
+                            }, 2000);
                         }
                     }
                 }
@@ -588,7 +604,7 @@ var cont=1;
 var map = L.map('map').setView([-2.901866, -79.006055], 14).addLayer(osm);
 map.doubleClickZoom.disable();
 
-var layerGroup = L.layerGroup().addTo(map);
+layerGroup = L.layerGroup();
 var marker=L.marker([0,0], {icon: greenIcon})
     .bindPopup(`Parada Seleccionada`)
     .on('mouseover', onClick);
