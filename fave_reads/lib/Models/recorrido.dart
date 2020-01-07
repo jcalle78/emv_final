@@ -54,7 +54,7 @@ class Recorrido extends Serializable
 
   Future<Recorrido> obtenerDatoId(int id) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_recorrido where rec_id=$id";
+    final String sql = "select r.rec_id,to_char(r.rec_hora_inicio, 'HH24:MI'),to_char(r.rec_hora_fin, 'HH24:MI'),r.rec_estado,r.sen_id,r.rut_id from public.te_recorrido r where rec_id=$id";
     final reg = Recorrido();
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     if(query != null && query.isNotEmpty)

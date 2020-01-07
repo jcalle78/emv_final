@@ -125,7 +125,7 @@
 						<table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
 						<thead class='cyan white-text'>
 							<tr>
-								<th scope="col">NRO</th>
+								<th scope="col">ORDEN</th>
 								<th scope="col">NOMBRE</th>
 								<th scope="col">UBICACI&Oacute;N</th>
 							</tr>
@@ -165,6 +165,10 @@
 			<div class="row">
 				<label class="col-md-4 col-form-label">Nombre:</label>
 				<div class="col-md-8"><input type="text" id="txtNombreParada" name="textBuscar" class="form-control text-uppercase"></div>
+			</div>
+			<div class="row mt-2">
+				<label class="col-md-4 col-form-label">Orden:</label>
+				<div class="col-md-4"><input type="number" id="txtOrden" name="textBuscar" class="form-control text-uppercase"></div>
 			</div>
             <div class="row justify-content-center mt-3">
                 <div class=""><input type="button" value="Guardar" class="btn white" onclick="agregarNombreParada();"  /></div>
@@ -228,24 +232,36 @@
 	var idRecorrido = -1;
 	var vec=[];
 	var vecNombres=[];
+	var vecOrden=[];
 
 
 	function agregarNombreParada()
 	{
 		
 		var n=document.getElementById("txtNombreParada").value;
+		var o=document.getElementById("txtOrden").value;
 		var listanombres="";
 		if(n == "")
 		{
-			toastr.error('Datos Incorrectos');
+			toastr.error('Datos de nombre');
 			document.getElementById("txtNombreParada").style.borderColor="red";
 		}
 		else
 		{
-			vecNombres.push(n);
-			document.getElementById("txtNombreParada").value="";
-			$('#modalNombres').modal('hide');
-			actualizarLista();
+			if(o == "")
+			{
+				toastr.error('Datos de nombre');
+				document.getElementById("txtOrden").style.borderColor="red";
+			}
+			else
+			{
+				vecNombres.push(n);
+				vecOrden.push(o);
+				document.getElementById("txtNombreParada").value="";
+				document.getElementById("txtOrden").value="";
+				$('#modalNombres').modal('hide');
+				actualizarLista();
+			}
 			
 		}
 	}
@@ -259,8 +275,8 @@
 			
 			for(var i=0;i<vec.length;i++)
 			{
-				listanombres+=`<tr><td>${i+1}</td>
-							<td>${vecNombres[i]}</td>
+				listanombres+=`<tr><td>${vecOrden[i]}</td>
+							<td>${vecNombres[i].toUpperCase()}</td>
 							<td>${vec[i]}</td></tr>
 							`;
 			}
@@ -285,7 +301,7 @@
 			var div2=div1[1].split(")");
 			var div3=div2[0].split(",");
 
-			var parada ={'id':0,'nombre': vecNombres[i],'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
+			var parada ={'id':0,'nombre': vecNombres[i],'orden': vecOrden[i],'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
 			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
 			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),3000);
 		}
@@ -406,7 +422,7 @@
 			function createButton(label, container) {
 			var btn = L.DomUtil.create('button', '', container);
 			btn.setAttribute('type', 'button');
-			btn.setAttribute('class', 'btn');
+			btn.setAttribute('class', 'boton_personalizado');
 			btn.innerHTML = label;
 			return btn;
 			}
@@ -414,10 +430,10 @@
 			map.on('dblclick', function(e) 
 			{
 				var container = L.DomUtil.create('div'),
-					startBtn = createButton('Comenzar ruta aqui', container),
-					interBtn = createButton('Realizar parada aqui', container),
-					destBtn = createButton('Finalizar ruta aqui', container),
-					delBtn = createButton('Eliminar ultima parada', container);
+					startBtn = createButton('Comenzar ruta aquí', container),
+					interBtn = createButton('Realizar parada aquí', container),
+					destBtn = createButton('Finalizar ruta aquí', container),
+					delBtn = createButton('Eliminar última parada', container);
 
 			
 				L.popup()
@@ -432,8 +448,9 @@
 					map.closePopup();
 					vec=[];
 					vecNombres=[];
-					vec.push(e.latlng.toString());
+					vecOrden=[];
 					$('#modalNombres').modal('show');
+					vec.push(e.latlng.toString());
 				});
 				
 				L.DomEvent.on(interBtn, 'click', function() 
@@ -449,8 +466,8 @@
 				{
 					control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
 					map.closePopup();
-					vec.push(e.latlng.toString());
 					$('#modalNombres').modal('show');
+					vec.push(e.latlng.toString());
 				});
 				
 				L.DomEvent.on(delBtn, 'click', function() 

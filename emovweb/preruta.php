@@ -3,9 +3,9 @@
 ?>
 
 
-<div class="container-fluid grey">
-		<?php
-		echo $menu
+<div class="container-fluid grey pr-0 pl-0">
+		<?php 
+		  echo $menu 
 		?>
 </div>
 
@@ -51,7 +51,7 @@
                 <div class="col-md-12">
 				
 					<div class="row justify-content-end text-white mr-1">
-						<a href="RutaEditar.php?metodo=Guardar" class="btn btn-info p-1"  ><i class="far fa-plus-square pr-2" aria-hidden="true"></i>Ruta</a> 
+						<a href="recorrido.php" class="btn btn-info p-1"  ><i class="far fa-plus-square pr-2" aria-hidden="true"></i>Ruta</a> 
 					</div>
 
                             
@@ -227,7 +227,7 @@
                         <td class ="boton1"> ${prod.horaFin}</td>
                         <td class ="boton1"> ${prod.estado==1?"Activo":"Inactivo"} </td>
                         <td>
-                            <?php echo "<a href="?>RecorridoEditar.php?id=${prod.id}
+                            <?php echo "<a href="?>RecorridoEditar.php?metodo=Modificar&id=${prod.id}
                             <?php echo "class='fas fa-edit'>Editar</a>" ?>
                         </td>
                     </tr>`;

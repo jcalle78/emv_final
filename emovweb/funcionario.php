@@ -4,9 +4,9 @@
 //    $menu=Sesiones("EMPRESA DE TRANSPORTE");
 ?>
 
-<div class="container-fluid grey">
-		<?php
-		echo $menu
+<div class="container-fluid grey pr-0 pl-0">
+		<?php 
+		  echo $menu 
 		?>
 </div>
 

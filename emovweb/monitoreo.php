@@ -378,7 +378,7 @@ function cargarUbicaciones(id)
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
-		var layerGroup = L.layerGroup().addTo(map)
+		var layerGroup = L.layerGroup().addTo(map);
 		layers2.push(layerGroup);
 		for(let prod of produ){			
 			agregarMarcadorAzul(prod.latitud,prod.longuitud,prod.nombre,layerGroup);	
