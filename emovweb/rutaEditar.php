@@ -22,23 +22,24 @@
 						<div class="row">
 							<label class="col-md-4 col-form-label">Descripcion:<span style="color:red" >*</span></label>
 							<div class="col-md-8">
-								<input type='text' id= "ape" class="form-control form-control-sm text-uppercase"  maxlength="50" />
+								<input type='text' id= "desc" class="form-control form-control-sm text-uppercase"  maxlength="50" />
 							</div>
 						</div>
                         
 						<div class="row">
 							<label class="col-md-4 col-form-label">Cupo Maximo:<span style="color:red" >*</span></label>
 							<div class="col-md-5">
-								<input type='text'id= "telf" class="form-control form-control-sm" maxlength="10"/>
+								<input type='number'id= "cupo" class="form-control form-control-sm" maxlength="10"/>
 							</div>
 						</div>	
 
 						<div class="row">
-							<label class="col-md-4 col-form-label" >Estado:<span style="color:red" >*</span></label>
-							<div class="col-md-8">
-								<input type='text' id="dir"  class="form-control form-control-sm text-uppercase" maxlength="100" />
+							<label class="col-md-4 col-form-label">Color:<span style="color:red" >*</span></label>
+							<div class="col-md-1">
+								<input type="color" id="colorRuta" name="colorRuta" value="#ff0000">
 							</div>
 						</div>
+
 						<div class="row">
 							<label class="col-md-4 col-form-label">Estado:</label>
 							<div class="col-md-5">
@@ -73,96 +74,69 @@
 		id= parametro.get('id');	
 		(async () => {
 			try{
-				let response = await fetch(`${raizServidor}/funcionario/${id}`)
-				let data = await response.json();				
-				document.getElementById('ced').value = (data['cedula']);
+				let response = await fetch(`${raizServidor}/rutas/${id}`)
+				let data = await response.json();
 				document.getElementById('nom').value = (data['nombre']);
-				document.getElementById('ape').value = (data['apellido']);
-				document.getElementById('dir').value = (data['direccion']);
-				document.getElementById('telf').value = (data['telefono']);
-				document.getElementById('cel').value = (data['celular']);
-				document.getElementById('email').value = (data['correo']);
-				document.getElementById('idInst').value = (data['institutoId']);	
-				BusInstituion(data['institutoId']);
+				document.getElementById('desc').value = (data['descripcion']);
+				document.getElementById('cupo').value = (data['cupoMaximo']);
+				document.getElementById('colorRuta').value= (data['color']);
 			}catch(e){
-				toastr.error('Error al Cargar algunos datos'); 	
+				toastr.error('Error al cargar algunos datos'); 	
 			}
 		})();			
 	}	
 
 
-	async function IngMod(v) {	
-						
-		event.preventDefault();	
+	function IngMod(v) {	
+		var nom = document.getElementById('nom');
+		var desc = document.getElementById('desc');
+		var cupo = document.getElementById('cupo');
+		var est = document.getElementById('est');
+		var colorRuta = document.getElementById('colorRuta');
+		
+		event.preventDefault();			
 
-		if(valCedula(ced.value)==false){
-			toastr.error('Cédula incorrecta');
-			document.getElementById("ced").style.borderColor="red";
-		}else{
-			document.getElementById("ced").style.borderColor='green';
-			if(valSololetras(nom.value)==false){
-				toastr.error('El nombre contiene caracteres incorrectos');
-				document.getElementById("nom").style.borderColor="red";
-			}else{ 
-				document.getElementById("nom").style.borderColor='green';
-				if(valSololetras(ape.value)==false){
-					toastr.error('EL Apellido contiene caracteres incorrectos');
-					document.getElementById("ape").style.borderColor="red";
-				}else{ 
-					document.getElementById("ape").style.borderColor='green';
-					if(valTelefono(telf.value)==false){
-						toastr.error('Teléfono incorrecto');
-						document.getElementById("telf").style.borderColor="red";
-					}else{ 
-						document.getElementById("telf").style.borderColor='green';
-						if(valCelular(cel.value)==false){
-							toastr.error('celular incorrecto');
-							document.getElementById("cel").style.borderColor="red";
-						}else{ 
-							document.getElementById("cel").style.borderColor='green';
-							if(valCorreo(email.value)==false){					
-								toastr.error('Correo incorrecto');
-								document.getElementById("email").style.borderColor="red";
-							}else{
-								document.getElementById("email").style.borderColor="green";	
-								if((idInst.value=="")||(nomInst.value=="") ){
-									toastr["error"]("Seleccione una Institución", "Dato Incorrecto!");
-									idInst.style.borderColor="red";
-									nomInst.style.borderColor="red";
-								}else{
-									idInst.style.borderColor='green';
-									nomInst.style.borderColor="green";			
-									var parametros={"id":0,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":document.getElementById("est").value,"institutoId":idInst.value};							
-									var url=`${raizServidor}/funcionario`;	
-									var institutoMonitoreo =false;
-
-									if(v.value=="Guardar"){
-										Ingresar(parametros,url);										
-										try{												
-											let response = await fetch(`${raizServidor}/contadores?opcion=3&id=0`);
-											let data = await response.json();	
-											var urlUsuario=`${raizServidor}/usuario`;
-											var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
-											Ingresar(ParametrosUsuario,urlUsuario)
-											// setTimeout(Ingresar(ParametrosUsuario,urlUsuario),3000);			
-
-										}catch(e){
-											toastr.error('Error al Cargar algunos datos'); 	
-										}
-																
-									}	
-									if(v.value=="Modificar"){
-										let redirigir="funcionario.php";
-										Modificar(parametros,`${url}/${id}`,redirigir);
-									}
-								}
-							}
-					    }	
-					}			
-				}			
-		  	}
-	  	}
-	}	
+		if(nom.value == "")
+		{
+				toastr.error('Error en el nombre');
+				nom.style.borderColor="red";
+		}
+		else
+		{
+			nom.style.borderColor="green";
+			if(desc.value == "")
+			{
+					toastr.error('Error en la descripción');
+					desc.style.borderColor="red";
+			}
+			else
+			{
+				desc.style.borderColor="green";
+				if(cupo.value == "")
+				{
+						toastr.error('Error en el cupo asignado');
+						cupo.style.borderColor="red";
+				}
+				else
+				{
+					cupo.style.borderColor="green";
+					var parametros={'id':0,'nombre':nom.value.toUpperCase(),'descripcion':desc.value.toUpperCase(),'estado':est.value,'cupoMaximo':cupo.value,'color':colorRuta.value,'insId':0};		
+					var url=`${raizServidor}/rutas`;
+					if(v.value=="Guardar")
+					{	
+						Ingresar(parametros,url);
+					}	
+					if(v.value=="Modificar")
+					{
+						let param = new URLSearchParams(location.search);
+						var id =param.get('id');
+						let redirigir="preruta.php";
+						Modificar(parametros,`${url}/${id}`,redirigir);
+					}
+				}
+			}
+		}	
+	}
 
 	function BusInstituion(insid){		
 		fetch(`http://localhost:8888/institucion/${insid}`)

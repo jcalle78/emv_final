@@ -271,7 +271,7 @@
 	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idVehiculo,inicioRuta,finRuta,listaSentido,estado){
 
 		var rutaVehiculo={'vehiculoId':idVehiculo,'rutaId':idRuta};
-		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': IntitucionPrincipal };
+		var ruta ={ 'id': idRuta, 'nombre': nombreRuta.toUpperCase(), 'descripcion': descRuta.toUpperCase(),'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': IntitucionPrincipal };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
 		

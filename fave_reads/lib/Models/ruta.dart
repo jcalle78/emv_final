@@ -120,8 +120,9 @@ class Ruta extends Serializable
    Future<void> modificar(int id,Ruta dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_ruta SET rut_nombre='${dato.nombre}',rut_descripcion='${dato.descripcion}',rut_cupo_maximo=${dato.cupoMaximo},rut_color='${dato.color}'"
+    "UPDATE public.te_ruta SET rut_nombre='${dato.nombre}',rut_descripcion='${dato.descripcion}',rut_cupo_maximo=${dato.cupoMaximo},rut_color='${dato.color}' "
 	  "WHERE rut_id=$id";
+    print(sql);
     await conexion.operaciones(sql);
   }
 
